@@ -14,11 +14,9 @@ public class MovieCollection {
     }
 
     // Tilføjer en film.
-    public Movie addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre){
+    public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre){
         Movie movie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
         movieCollection.add(movie);
-
-        return movie;
     }
 
     // Finder specifikke film.
@@ -35,8 +33,8 @@ public class MovieCollection {
     }
 
     // Sletter en film.
-    public void deleteMovie(Movie movie){
-        movieCollection.remove(movie);
+    public void deleteMovie(){
+        movieCollection.remove(currentMovie);
     }
 
 

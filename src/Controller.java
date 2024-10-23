@@ -19,24 +19,22 @@ public class Controller {
 
     // Tilføjer
     public String addMovie(String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre) {
-        Movie movie = movieCollection.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
+        movieCollection.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
 
         // Returner tilføjet.
-        return movie.toString();
+        return movieCollection.getCurrentMovie();
     }
 
     public String deleteMovie(String movieName) {
         // Finder film.
-        Movie movie = movieCollection.findSpecificMovie(movieName);
-
-        // Hvis der ikke er nogen film.
-        if (movie == null) {
-            return "The movie doesn't exist.";
+        String movieCheck = checkSpecificMovie(movieName);
+        if(!movieCheck.isEmpty()){
+            return movieCheck;
         }
 
         // Fjern.
-        movieCollection.deleteMovie(movie);
-        return "You removed:\n" + movie;
+        movieCollection.deleteMovie();
+        return "You removed:\n" + movieCollection.getCurrentMovie();
 
     }
 
