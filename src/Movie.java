@@ -39,4 +39,22 @@ public class Movie {
         return  genre;
     }
 
+    @Override
+    public String toString(){
+        String output = "";
+        output  += "Movie: " + title + " \n";
+        output  += "Director: " + director + " \n";
+        output  += "Year Created: " + yearCreated + " \n";
+        output  += "Is in color: ";
+        if(isInColor){
+            output += "Yes \n";
+        }else {
+            output += "No \n";
+        }
+        output += "Length (in minutes) : " + lengthInMinutes + " \n";
+        output += "Genre: " + genre;
+
+        return output;
+    }
+
 }
