@@ -15,7 +15,7 @@ public class Controller {
         return display;
     }
 
-    public void addMovie(String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre){
+    public void addMovie(String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre){
         movieCollection.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
     }
 
@@ -23,7 +23,11 @@ public class Controller {
         movieCollection.deleteMovie(movieCollection.findSpecificMovie(movieName));
     }
 
-    public void editMovie(){
+    public Movie findSpecificMovie(String movie) {
+        return movieCollection.findSpecificMovie(movie);
+    }
 
+    public void updateMovie(Movie oldMovie, Movie newMovie){
+        movieCollection.updateMovie(oldMovie,newMovie);
     }
 }

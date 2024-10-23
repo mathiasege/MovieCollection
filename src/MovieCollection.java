@@ -7,8 +7,8 @@ public class MovieCollection {
         return movieCollection;
     }
 
-    public void addMovie(String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre){
-        Movie movie = new Movie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
+    public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre){
+        Movie movie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
         movieCollection.add(movie);
     }
 
@@ -18,14 +18,23 @@ public class MovieCollection {
         for(Movie temp : movieCollection){
             if(temp.getTitle().toLowerCase().equals(movieName)){
                 movie = temp;
+                return movie;
             }
         }
 
-        return movie;
+        return null;
     }
 
     public void deleteMovie(Movie movie){
         movieCollection.remove(movie);
+    }
+
+    public void updateMovie(Movie oldMovie, Movie newMovie){
+        for(Movie movie : movieCollection){
+            if(movie.equals(oldMovie)){
+                movie = newMovie;
+            }
+        }
     }
 
 }
