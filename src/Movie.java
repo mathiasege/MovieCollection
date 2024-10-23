@@ -10,9 +10,22 @@ public class Movie {
         this.title = title;
         this.director = director;
         this.yearCreated = yearCreated;
-        setIsInColorFromString(color);
+        // Har lagt et lag oven på boolean isInColor
+        setColorFromString(color);
         this.lengthInMinutes = lengthInMinutes;
         this.genre = genre;
+    }
+
+    // Laver min håndtering for Color.
+    // Sætter til sandt eller falsk
+    public void setColorFromString(String color) {
+        isInColor = color.equals("YES");
+    }
+    // Henter color.
+    public String getColorBoolAsString() {
+        return isInColor
+                ? "Yes"
+                : "No";
     }
 
     public String getTitle() {
@@ -35,16 +48,6 @@ public class Movie {
     public void setYearCreated(int yearCreated) {
         this.yearCreated = yearCreated;
     }
-
-    public void setIsInColorFromString(String color) {
-        isInColor = color.equals("YES");
-    }
-    public String getColorBoolAsString() {
-        return isInColor
-                ? "Yes"
-                : "No";
-    }
-
 
     public int getLengthInMinutes() {
         return lengthInMinutes;
