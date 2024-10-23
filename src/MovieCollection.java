@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class MovieCollection {
-    private ArrayList<Movie> movieCollection = new ArrayList<Movie>();
+    private final ArrayList<Movie> movieCollection = new ArrayList<Movie>();
 
     public ArrayList<Movie> getMovies(){
         return movieCollection;
@@ -12,7 +12,7 @@ public class MovieCollection {
         movieCollection.add(movie);
     }
 
-    public Movie findMovie(String movieName){
+    public Movie findSpecificMovie(String movieName){
         Movie movie = null;
 
         for(Movie temp : movieCollection){

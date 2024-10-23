@@ -1,5 +1,5 @@
 public class Controller {
-    private MovieCollection movieCollection;
+    private final MovieCollection movieCollection;
 
     public Controller(){
         movieCollection = new MovieCollection();
@@ -20,7 +20,7 @@ public class Controller {
     }
 
     public void deleteMovie(String movieName){
-        movieCollection.deleteMovie(movieCollection.findMovie(movieName));
+        movieCollection.deleteMovie(movieCollection.findSpecificMovie(movieName));
     }
 
     public void editMovie(){
