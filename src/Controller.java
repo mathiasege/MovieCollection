@@ -14,7 +14,9 @@ public class Controller {
             display += movie.toString();
         }
 
-        return display;
+        return display.isEmpty()
+                ? "No movies exist."
+                : display;
     }
 
     // Tilføjer
