@@ -1,4 +1,4 @@
-public class Film {
+public class Movie {
     private String title;
     private String director;
     private int yearCreated;
@@ -6,7 +6,7 @@ public class Film {
     private int lengthInMinutes;
     private String genre;
 
-    public Film(String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre){
+    public Movie(String title, String director, int yearCreated, boolean isInColor, int lengthInMinutes, String genre){
         this.title = title;
         this.director = director;
         this.yearCreated = yearCreated;
