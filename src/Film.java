@@ -1,5 +1,3 @@
-
-
 public class Film {
     private String title;
     private String director;
