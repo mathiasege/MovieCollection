@@ -44,9 +44,6 @@ public class Movie {
                 ? "Yes"
                 : "No";
     }
-    private boolean isInColor() {
-        return isInColor;
-    }
 
 
     public int getLengthInMinutes() {

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class MovieCollection {
-    private final ArrayList<Movie> movieCollection = new ArrayList<Movie>();
+    private final ArrayList<Movie> movieCollection = new ArrayList<>();
 
     public ArrayList<Movie> getMovies(){
         return movieCollection;
@@ -13,15 +13,11 @@ public class MovieCollection {
     }
 
     public Movie findSpecificMovie(String movieName){
-        Movie movie = null;
-
         for(Movie temp : movieCollection){
             if(temp.getTitle().toLowerCase().equals(movieName)){
-                movie = temp;
-                return movie;
+                return temp;
             }
         }
-
         return null;
     }
 
