@@ -67,7 +67,7 @@ public class Movie {
                 "Created: " + yearCreated + "\n" +
                 "Is in color: " + getColorBoolAsString() + "\n" +
                 "length: " + lengthInMinutes + "\n" +
-                "genre: " + genre + "\n";
+                "genre: " + genre;
 
     }
 

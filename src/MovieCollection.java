@@ -7,9 +7,11 @@ public class MovieCollection {
         return movieCollection;
     }
 
-    public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre){
+    public Movie addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre){
         Movie movie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
         movieCollection.add(movie);
+
+        return movie;
     }
 
     public Movie findSpecificMovie(String movieName){

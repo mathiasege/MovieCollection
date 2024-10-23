@@ -14,12 +14,14 @@ public class UserInterface {
         System.out.println("Welcome to the movie collection program");
 
         while (!userChoice.equals("END")) {
+            System.out.println("----------------------");
             System.out.println("Please enter a command:");
             System.out.println("Display: show movies");
             System.out.println("Add: add a new movie");
             System.out.println("Delete: Delete a movie");
             System.out.println("Update: Update a movie");
             System.out.println("End: exit");
+            System.out.println("----------------------");
 
             userChoice = input.nextLine().toUpperCase();
 
@@ -35,46 +37,23 @@ public class UserInterface {
     }
 
     private void displayMovie() {
+        System.out.println("Display movies");
+        System.out.println("----------------------");
         System.out.println(controller.displayMovie());
     }
 
-    private void addMovie() {
-        Scanner scan = new Scanner(System.in);
-
-        System.out.println("name of the movie:");
-        String movieName = stringIsNotEmpty(scan.nextLine().trim(), scan);
-
-        System.out.println("name of the director:");
-        String movieDirector = stringIsNotEmpty(scan.nextLine().trim(), scan);
-
-        System.out.println("the movie is in color. (Yes or No)");
-        String color = stringIsYesNo(scan.nextLine().toUpperCase().trim(), scan);
-
-        System.out.println("name of the genre.");
-        String genre = stringIsNotEmpty(scan.nextLine().trim(), scan);
-
-        System.out.println("Length of the movie");
-        int length = checkInt(scan.nextInt(), scan);
-
-        System.out.println("Created:");
-        int year = checkInt(scan.nextInt(), scan);
-
-        controller.addMovie(movieName,
-                movieDirector,
-                year,
-                color,
-                length,
-                genre);
-    }
-
     private void deleteMovie() {
+        System.out.println("Delete a movie");
+        System.out.println("----------------------");
         System.out.println("Type the name of the movie you would like to remove");
         String movie = new Scanner(System.in).nextLine().toLowerCase();
 
-        controller.deleteMovie(movie);
+        System.out.println(controller.deleteMovie(movie));
     }
 
     private void updateMovie() {
+        System.out.println("Update a movie");
+        System.out.println("----------------------");
         System.out.println("Type the name of the movie you would like to edit");
         String movie = new Scanner(System.in).nextLine().toLowerCase();
 
@@ -84,8 +63,45 @@ public class UserInterface {
         controller.updateMovie(oldMovie, newMovie);
     }
 
+    private void addMovie() {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Insert a movie");
+        System.out.println("----------------------");
+
+        System.out.println("name of the movie:");
+        String movieName = stringIsNotEmpty(scan.nextLine().trim(), scan);
+
+        System.out.println("name of the director:");
+        String movieDirector = stringIsNotEmpty(scan.nextLine().trim(), scan);
+
+        System.out.println("the movie is in color. (yes or no)");
+        String color = stringIsYesNo(scan.nextLine().toUpperCase().trim(), scan);
+
+        System.out.println("name of the genre.");
+        String genre = stringIsNotEmpty(scan.nextLine().trim(), scan);
+
+        System.out.println("Length of the movie");
+        int length = checkInt(scan.nextInt(), scan);
+
+        System.out.println("Release date:");
+        int year = checkInt(scan.nextInt(), scan);
+
+        String addMovie = controller.addMovie(movieName,
+                movieDirector,
+                year,
+                color,
+                length,
+                genre);
+
+        System.out.println("You just added:\n" + addMovie);
+    }
+
     private Movie changeMovie(Movie movie) {
         Scanner scan = new Scanner(System.in);
+
+        System.out.println("Edit a movie");
+        System.out.println("----------------------");
 
         System.out.println("Movie name: " + movie.getTitle());
         System.out.println("New movie name:");
@@ -96,7 +112,7 @@ public class UserInterface {
         movie.setDirector(stringIsNotEmpty(scan.nextLine().trim(), scan));
 
         System.out.println("Movie is in color: " + movie.getColorBoolAsString());
-        System.out.println("Is in color, Yes or No:");
+        System.out.println("Is in color, yes or no:");
         String color = stringIsYesNo(scan.nextLine().toUpperCase().trim(), scan);
         movie.setIsInColorFromString(color);
 
@@ -125,9 +141,9 @@ public class UserInterface {
         return value;
     }
 
-    private String stringIsYesNo(String color, Scanner scan){
-        while(!color.equals("YES") && !color.equals("NO")){
-            System.out.println("Try agian. Type: Yes or No");
+    private String stringIsYesNo(String color, Scanner scan) {
+        while (!color.equals("YES") && !color.equals("NO")) {
+            System.out.println("Try again. Type: yes or no");
             color = scan.nextLine().toUpperCase().trim();
         }
 
