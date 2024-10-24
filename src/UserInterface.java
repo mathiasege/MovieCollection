@@ -115,12 +115,13 @@ public class UserInterface {
     }
 
     private void selectMovie(ArrayList<Movie> searchResults){
-        System.out.println("If you wish to edit one of the movies, type EDIT, followed by the movies name");
-        System.out.println("Otherwise, type BACK");
-        String userChoice = input.nextLine();
+
         Movie selection;
         boolean exit = false;
         while(!exit){
+            System.out.println("If you wish to edit one of the movies, type EDIT, followed by the movies name");
+            System.out.println("Otherwise, type BACK");
+            String userChoice = input.nextLine();
             String[] userChoiceSplit = userChoice.split(" ");
             if(userChoiceSplit.length > 0){
                 if(userChoiceSplit[0].toUpperCase().equals("EDIT")){
@@ -128,7 +129,11 @@ public class UserInterface {
                     ArrayList<Movie> results = movieCollection.searchByTitle(selectedMovie);
                     if(results.size() >= 1){
                         selection = results.get(0);
+                        editMovie(selection);
+
                     }
+                } else if (userChoiceSplit[0].toUpperCase().equals("BACK")) {
+                    exit = true;
                 }
             }
 
@@ -136,6 +141,69 @@ public class UserInterface {
 
 
 
+    }
+
+
+    private void editMovie(Movie selection){
+        System.out.println("Editing "  + selection.getTitle() + ":");
+        System.out.println("Please enter the movie's title:");
+        String title = input.nextLine();
+        System.out.println("Please enter the director:");
+        String director = input.nextLine();
+
+
+        System.out.println("Please enter the year of the movie's creation:");
+        String yearInput = "x";
+        int year = 0;
+        while (!isNumeric(yearInput)){
+            yearInput = input.nextLine();
+            if(!isNumeric(yearInput)){
+                System.out.println("Please enter a valid year");
+            }else{
+                year = Integer.parseInt(yearInput);
+            }
+
+        }
+
+        System.out.println("is the movie in color? y/n");
+        boolean inColor = false;
+        String inColorInput = "";
+        while(!inColorInput.equals("y") && !inColorInput.equals("n")){
+            inColorInput = input.nextLine();
+            if(inColorInput.equals("y")){
+                inColor = true;
+            }else if(inColorInput.equals("n")){
+                inColor = false;
+            }else{
+                System.out.println("Please enter a valid input");
+            }
+        }
+
+
+        System.out.println("How long is the movie? (in minutes)");
+        String lengthInput = "x";
+        int length = 0;
+        while (!isNumeric(lengthInput)){
+            lengthInput = input.nextLine();
+            if(!isNumeric(lengthInput)){
+                System.out.println("Please enter a valid year");
+            }else{
+                length = Integer.parseInt(lengthInput);
+            }
+
+        }
+
+        System.out.println("Which genre is the movie");
+        String genre = input.nextLine();
+
+
+        //updating the movie:
+        selection.setTitle(title);
+        selection.setDirector(director);
+        selection.setGenre(genre);
+        selection.setInColor(inColor);
+        selection.setLengthInMinutes(length);
+        selection.setYearCreated(year);
     }
 
     private String reconstructSelection(String[] splitChoice){
