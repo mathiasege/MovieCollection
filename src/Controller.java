@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Controller {
     private final MovieCollection movieCollection;
 
@@ -30,6 +32,19 @@ public class Controller {
 
         // Returner tilføjet.
         return movieCollection.getCurrentMovie();
+    }
+
+
+    public String searchMovie(String searchWord){
+        boolean movieMatch = false;
+        for(Movie m : movieCollection.getMovies()){
+            if(m.getTitle().toLowerCase().contains(searchWord.toLowerCase())){
+                movieMatch = true;
+                System.out.println(m + "\n");
+            }
+
+        }
+        return  movieMatch ? "" : "No match found";
     }
 
     public String deleteMovie(String movieName) {

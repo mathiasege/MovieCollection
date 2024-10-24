@@ -10,7 +10,15 @@ public class MovieCollection {
 
         // Tilføjer en til test
         Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
+        Movie loveActually = new Movie("Love Actually", "Chris", 2005, "Yes", 180,"Action");
+        Movie batman2 = new Movie("Batman & Beyond", "Chris", 2005, "Yes", 180,"Action");
+        Movie batman3 = new Movie("Batman VS Superman", "Chris", 2005, "Yes", 180,"Action");
+        Movie titanic = new Movie("Titanic", "Chris", 2005, "Yes", 180,"Action");
         movieCollection.add(batman);
+        movieCollection.add(loveActually);
+        movieCollection.add(batman2);
+        movieCollection.add(batman3);
+        movieCollection.add(titanic);
     }
 
     // Tilføjer en film.

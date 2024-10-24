@@ -18,6 +18,7 @@ public class UserInterface {
             System.out.println("Please enter a command:");
             System.out.println("Display: show movies.");
             System.out.println("Add: add a new movie.");
+            System.out.println("Search: Search for a movie by title.");
             System.out.println("Delete: Delete a movie.");
             System.out.println("Update: Update a movie.");
             System.out.println("End: exit.");
@@ -29,11 +30,21 @@ public class UserInterface {
                 case "DISPLAY" -> displayMovie();
                 case "ADD" -> addMovie();
                 case "DELETE" -> deleteMovie();
+                case "SEARCH" -> searchMovie();
                 case "UPDATE" -> updateMovie();
                 case "END" -> System.out.println("You're ending the game.");
                 default -> System.out.println("Please enter a valid command.");
             }
         }
+    }
+
+    private void searchMovie(){
+        System.out.println("Type the title the movie");
+        System.out.println("----------------------");
+        String searchedMovie = new Scanner(System.in).nextLine().toLowerCase();
+        System.out.println(controller.searchMovie(searchedMovie));
+
+
     }
 
     private void displayMovie() {
