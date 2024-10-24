@@ -9,8 +9,8 @@ public class MovieCollection {
         movieCollection = new ArrayList<>();
 
         // Tilføjer en til test
-        Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
-        movieCollection.add(batman);
+        //Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
+        //movieCollection.add(batman);
     }
 
     // Tilføjer en film.
@@ -42,7 +42,7 @@ public class MovieCollection {
     public ArrayList<Movie> searchByTitle(String title){
         ArrayList<Movie> searchResults = new ArrayList<Movie>();
         for(Movie movie: movieCollection){
-            if (movie.getTitle().contains(title)){
+            if (movie.getTitle().toUpperCase().contains(title.toUpperCase())){
                 searchResults.add(movie);
             }
         }
