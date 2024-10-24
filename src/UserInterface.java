@@ -15,6 +15,7 @@ public class UserInterface {
             System.out.println("Please enter a command:");
             System.out.println("ADD: add a new movie.");
             System.out.println("DISPLAY: display all movies in the collection.");
+            System.out.println("SEARCH: search for a movie by name");
             System.out.println("END: quit the program.");
 
             userChoice = input.nextLine();
@@ -24,7 +25,7 @@ public class UserInterface {
                 case "ADD"-> addMovie();
                 case "DISPLAY" -> displayAllMovies();
                 case "SEARCH" -> searchByName();
-                case "END" -> System.out.println("You're ending the game.");
+                case "END" -> System.out.println("You're exiting the program.");
                 default -> System.out.println("Please enter a valid command");
             }
         }
@@ -103,9 +104,52 @@ public class UserInterface {
             for(Movie movie : searchResults){
                 System.out.println(movie);
             }
+            //enabling editing of a movie
+            selectMovie(searchResults);
+
+
+
         }else{
             System.out.println("No Results found");
         }
+    }
+
+    private void selectMovie(ArrayList<Movie> searchResults){
+        System.out.println("If you wish to edit one of the movies, type EDIT, followed by the movies name");
+        System.out.println("Otherwise, type BACK");
+        String userChoice = input.nextLine();
+        Movie selection;
+        boolean exit = false;
+        while(!exit){
+            String[] userChoiceSplit = userChoice.split(" ");
+            if(userChoiceSplit.length > 0){
+                if(userChoiceSplit[0].toUpperCase().equals("EDIT")){
+                    String selectedMovie = reconstructSelection(userChoiceSplit);
+                    ArrayList<Movie> results = movieCollection.searchByTitle(selectedMovie);
+                    if(results.size() >= 1){
+                        selection = results.get(0);
+                    }
+                }
+            }
+
+        }
+
+
+
+    }
+
+    private String reconstructSelection(String[] splitChoice){
+        String itemName = "";
+        for(int i=1; i<splitChoice.length; i++){
+            if(i == splitChoice.length -1){
+                itemName = itemName + splitChoice[i];
+            }else {
+                itemName = itemName + splitChoice[i] + " ";
+            }
+
+        }
+
+        return itemName;
     }
 
 
