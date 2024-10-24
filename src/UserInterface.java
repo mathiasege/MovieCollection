@@ -32,7 +32,7 @@ public class UserInterface {
                 case "ADD" -> addMovie();
                 case "DELETE" -> deleteMovie();
                 case "UPDATE" -> updateMovie();
-                case "SEARCH" -> searchByName();
+                case "SEARCH" -> System.out.println(searchByName());
                 case "END" -> System.out.println("You're ending the game.");
                 default -> System.out.println("Please enter a valid command.");
             }
@@ -192,21 +192,11 @@ public class UserInterface {
     }
 
 
-    private void searchByName(){
+    private String searchByName(){
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter the name of the movie you wish to search for:");
         String searchTerm = input.nextLine();
-        ArrayList<Movie> searchResults = controller.searchByTitle(searchTerm);
-        if(searchResults.size() > 0){
-            System.out.println(searchResults.size() + " results were found:");
-            for(Movie movie : searchResults){
-                System.out.println(movie + "\n");
-            }
-            //enabling editing of a movie
-            //selectMovie(searchResults);
-        }else{
-            System.out.println("No Results found");
-        }
+        return controller.searchByTitle(searchTerm);
     }
 }
 
