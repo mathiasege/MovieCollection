@@ -23,6 +23,11 @@ public class Movie {
     }
     // Henter color.
     public String getColorBoolAsString() {
+        // if(isInColor) {
+        //  return "Yes"
+        //} else{
+        // return "No"
+        //}
         return isInColor
                 ? "Yes"
                 : "No";

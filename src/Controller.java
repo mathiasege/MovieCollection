@@ -14,6 +14,11 @@ public class Controller {
             display += movie.toString();
         }
 
+        // If display.isEmpty(){
+        // return "No movies exist"
+        //} else{
+        // return display
+        //}
         return display.isEmpty()
                 ? "No movies exist."
                 : display;
@@ -47,7 +52,6 @@ public class Controller {
         }
         return "";
     }
-
 
 
     // ------------------------ START: get og setter ------------------------
