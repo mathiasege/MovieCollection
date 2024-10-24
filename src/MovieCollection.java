@@ -37,6 +37,20 @@ public class MovieCollection {
         movieCollection.remove(currentMovie);
     }
 
+    //search for a movie by its title and return an array list of found movies from the collection:
+    //TODO: MAKE THIS NON CASE SENSITIVE
+    public ArrayList<Movie> searchByTitle(String title){
+        ArrayList<Movie> searchResults = new ArrayList<Movie>();
+        for(Movie movie: movieCollection){
+            if (movie.getTitle().contains(title)){
+                searchResults.add(movie);
+            }
+        }
+
+        return searchResults;
+    }
+
+
 
     // ------------------------ START: get og setter ------------------------
     public ArrayList<Movie> getMovies(){

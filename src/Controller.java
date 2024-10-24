@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Controller {
     private final MovieCollection movieCollection;
 
@@ -51,6 +53,11 @@ public class Controller {
             return "The movie doesn't exist";
         }
         return "";
+    }
+
+    //search for a film by title:
+    public ArrayList<Movie> searchByTitle(String searchTerm){
+        return movieCollection.searchByTitle(searchTerm);
     }
 
 

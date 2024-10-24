@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -20,6 +21,7 @@ public class UserInterface {
             System.out.println("Add: add a new movie.");
             System.out.println("Delete: Delete a movie.");
             System.out.println("Update: Update a movie.");
+            System.out.println("Search: search for a movie by its title.");
             System.out.println("End: exit.");
             System.out.println("----------------------");
 
@@ -30,6 +32,7 @@ public class UserInterface {
                 case "ADD" -> addMovie();
                 case "DELETE" -> deleteMovie();
                 case "UPDATE" -> updateMovie();
+                case "SEARCH" -> searchByName();
                 case "END" -> System.out.println("You're ending the game.");
                 default -> System.out.println("Please enter a valid command.");
             }
@@ -186,6 +189,27 @@ public class UserInterface {
         // sæt
         value = scan.nextInt();
         return value;
+    }
+
+
+    private void searchByName(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter the name of the movie you wish to search for:");
+        String searchTerm = input.nextLine();
+        ArrayList<Movie> searchResults = controller.searchByTitle(searchTerm);
+        if(searchResults.size() > 0){
+            System.out.println(searchResults.size() + "results were found:");
+            for(Movie movie : searchResults){
+                System.out.println(movie);
+            }
+            //enabling editing of a movie
+            //selectMovie(searchResults);
+
+
+
+        }else{
+            System.out.println("No Results found");
+        }
     }
 }
 
