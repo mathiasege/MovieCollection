@@ -15,8 +15,8 @@ public class MovieCollection {
 
     // Tilføjer en film.
     public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre){
-        Movie movie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
-        movieCollection.add(movie);
+        currentMovie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
+        movieCollection.add(currentMovie);
     }
 
     // Finder specifikke film.
