@@ -21,7 +21,7 @@ public class UserInterface {
             System.out.println("Add: add a new movie.");
             System.out.println("Delete: Delete a movie.");
             System.out.println("Update: Update a movie.");
-            System.out.println("Search: search for a movie by its title.");
+            System.out.println("Search: Search for a movie by its title.");
             System.out.println("End: exit.");
             System.out.println("----------------------");
 
@@ -198,15 +198,12 @@ public class UserInterface {
         String searchTerm = input.nextLine();
         ArrayList<Movie> searchResults = controller.searchByTitle(searchTerm);
         if(searchResults.size() > 0){
-            System.out.println(searchResults.size() + "results were found:");
+            System.out.println(searchResults.size() + " results were found:");
             for(Movie movie : searchResults){
-                System.out.println(movie);
+                System.out.println(movie + "\n");
             }
             //enabling editing of a movie
             //selectMovie(searchResults);
-
-
-
         }else{
             System.out.println("No Results found");
         }
