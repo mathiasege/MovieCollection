@@ -9,8 +9,9 @@ public class MovieCollection {
         movieCollection = new ArrayList<>();
 
         // Tilføjer en til test
-        Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
-        movieCollection.add(batman);
+        //Do this outside the movie collection class instead
+        //Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
+        //movieCollection.add(batman);
     }
 
     // Tilføjer en film.
@@ -101,6 +102,10 @@ public class MovieCollection {
 
     public String getCurrentMovie() {
         return currentMovie.toString();
+    }
+
+    public ArrayList<Movie> getMovieCollection(){
+        return movieCollection;
     }
 
     // ------------------------ SLUT: get og setter ------------------------
