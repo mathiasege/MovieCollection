@@ -26,6 +26,8 @@ public class Controller {
                 : display;
     }
 
+
+
     // Tilføjer
     public String addMovie(String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre) {
         movieCollection.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
