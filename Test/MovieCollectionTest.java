@@ -11,6 +11,7 @@ class MovieCollectionTest {
         MovieCollection movieCollection = new MovieCollection();
         int expectedInt = 3;
 
+
         // Act - her executer du den kode, som du vil teste
         movieCollection.addMovie("Tarzan","Mathias Clausen", 1995,"Yes",180,"Action");
         movieCollection.addMovie("Batman","Mathias Clausen", 2000,"no",200,"Action");
