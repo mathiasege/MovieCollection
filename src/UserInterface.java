@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
-    private MovieCollection movieCollection = new MovieCollection();
+    private Controller controller = new Controller();
     private Scanner input = new Scanner(System.in);
 
 
@@ -84,12 +84,12 @@ public class UserInterface {
 
 
         //making the movie:
-        movieCollection.addMovie(title, director, year, inColor, length, genre);
+        controller.addMovie(title, director, year, inColor, length, genre);
 
     }
 
     private void displayAllMovies(){
-        ArrayList<String> displayList = movieCollection.displayAllMovies();
+        ArrayList<String> displayList = controller.displayAllMovies();
         for(String movie : displayList){
             System.out.println(movie);
         }
@@ -98,7 +98,7 @@ public class UserInterface {
     private void searchByName(){
         System.out.println("Please enter the name of the movie you wish to search for:");
         String searchTerm = input.nextLine();
-        ArrayList<Movie> searchResults = movieCollection.searchByTitle(searchTerm);
+        ArrayList<Movie> searchResults = controller.searchByTitle(searchTerm);
         if(searchResults.size() > 0){
             System.out.println(searchResults.size() + "results were found:");
             for(Movie movie : searchResults){
@@ -126,7 +126,7 @@ public class UserInterface {
             if(userChoiceSplit.length > 0){
                 if(userChoiceSplit[0].toUpperCase().equals("EDIT")){
                     String selectedMovie = reconstructSelection(userChoiceSplit);
-                    ArrayList<Movie> results = movieCollection.searchByTitle(selectedMovie);
+                    ArrayList<Movie> results = controller.searchByTitle(selectedMovie);
                     if(results.size() >= 1){
                         selection = results.get(0);
                         editMovie(selection);

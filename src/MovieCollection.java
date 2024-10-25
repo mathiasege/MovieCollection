@@ -17,6 +17,10 @@ public class MovieCollection {
         return displayList;
     }
 
+    public ArrayList<Movie> getMovieCollection(){
+        return movieCollection;
+    }
+
     //TODO: MAKE THIS NON CASE SENSITIVE
     public ArrayList<Movie> searchByTitle(String title){
         ArrayList<Movie> searchResults = new ArrayList<Movie>();
