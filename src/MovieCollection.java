@@ -2,15 +2,15 @@ import java.util.ArrayList;
 
 public class MovieCollection {
     private final ArrayList<Movie> movieCollection;
-    // Den sidste specifikke film, som er blevet søgt på.
+    // Den sidste specifikke film, som er blevet søgt på eller tilføjet.
     private Movie currentMovie;
 
     public MovieCollection(){
         movieCollection = new ArrayList<>();
 
         // Tilføjer en til test
-        Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
-        movieCollection.add(batman);
+//        Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
+//        movieCollection.add(batman);
     }
 
     // Tilføjer en film.
