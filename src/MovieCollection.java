@@ -2,15 +2,16 @@ import java.util.ArrayList;
 
 public class MovieCollection {
     private final ArrayList<Movie> movieCollection;
-    // Den sidste specifikke film, som er blevet søgt på eller tilføjet.
+    // Den sidste specifikke film, som er blevet søgt på.
     private Movie currentMovie;
 
     public MovieCollection(){
         movieCollection = new ArrayList<>();
 
         // Tilføjer en til test
-//        Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
-//        movieCollection.add(batman);
+        //Do this outside the movie collection class instead
+        //Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
+        //movieCollection.add(batman);
     }
 
     // Tilføjer en film.
@@ -40,7 +41,7 @@ public class MovieCollection {
     //search for a movie by its title and return an array list of found movies from the collection:
     //TODO: MAKE THIS NON CASE SENSITIVE
     public ArrayList<Movie> searchByTitle(String title){
-        ArrayList<Movie> searchResults = new ArrayList<>();
+        ArrayList<Movie> searchResults = new ArrayList<Movie>();
         for(Movie movie: movieCollection){
             if (movie.getTitle().toUpperCase().contains(title.toUpperCase())){
                 searchResults.add(movie);
@@ -101,6 +102,10 @@ public class MovieCollection {
 
     public String getCurrentMovie() {
         return currentMovie.toString();
+    }
+
+    public ArrayList<Movie> getMovieCollection(){
+        return movieCollection;
     }
 
     // ------------------------ SLUT: get og setter ------------------------
