@@ -47,7 +47,7 @@ public class Controller {
     }
 
     // Checker om en film eksistere.
-    // Har fjernet try catch her. Det var duplikeret kode.
+    // !!! Har fjernet try catch her. Det var duplikeret kode. !!!!
     public String checkSpecificMovie(String movie) {
         if (movieCollection.findSpecificMovie(movie) == null){
             return "The movie doesn't exist";

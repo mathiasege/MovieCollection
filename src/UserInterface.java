@@ -61,7 +61,7 @@ public class UserInterface {
         System.out.println("Type the name of the movie you would like to edit.");
         String movie = new Scanner(System.in).nextLine().toLowerCase();
 
-        // Fjernet variabel herfra og try catch. Koden gjord ikke noget specielt.
+        // !!! Fjernet variabel herfra og try catch. Koden gjord ikke noget specielt. !!!
         // Kontrollere om filmen eksistere.
         String movieExist = controller.checkSpecificMovie(movie);
         if (movieExist.isEmpty())
@@ -176,7 +176,7 @@ public class UserInterface {
     }
 
 
-    // Har opdateret denne:
+    // !!! Har opdateret denne: !!!
     // Kontrol for min int.
     private int checkInt(Scanner scan) {
         // Hvis rigtigt er indtastet.
