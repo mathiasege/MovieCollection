@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -62,19 +61,17 @@ public class UserInterface {
         System.out.println("Type the name of the movie you would like to edit.");
         String movie = new Scanner(System.in).nextLine().toLowerCase();
 
+        // Fjernet variabel herfra og try catch. Koden gjord ikke noget specielt.
         // Kontrollere om filmen eksistere.
-        String movieExist = "";
-        try {
-            movieExist = controller.checkSpecificMovie(movie);
-            System.out.println(movieExist);
+        String movieExist = controller.checkSpecificMovie(movie);
+        if (movieExist.isEmpty())
             update();
-        } catch (NullPointerException e) {
-            System.out.println("No match found in the movie library.");
-        }
-
+        else
+            System.out.println(movieExist);
 
 
     }
+
     private void update() {
         Scanner scan = new Scanner(System.in);
 
@@ -192,7 +189,7 @@ public class UserInterface {
     }
 
 
-    private String searchByName(){
+    private String searchByName() {
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter the name of the movie you wish to search for:");
         String searchTerm = input.nextLine();

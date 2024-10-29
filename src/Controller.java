@@ -36,7 +36,7 @@ public class Controller {
     public String deleteMovie(String movieName) {
         // Finder film.
         String movieCheck = checkSpecificMovie(movieName);
-        if(!movieCheck.isEmpty()){
+        if (!movieCheck.isEmpty()) {
             return movieCheck;
         }
 
@@ -47,24 +47,24 @@ public class Controller {
     }
 
     // Checker om en film eksistere.
+    // Har fjernet try catch her. Det var duplikeret kode.
     public String checkSpecificMovie(String movie) {
-        try {
-            movieCollection.findSpecificMovie(movie);
-        } catch (NullPointerException npe) {
+        if (movieCollection.findSpecificMovie(movie) == null){
             return "The movie doesn't exist";
         }
+
         return "";
     }
 
     //search for a film by title:
-    public String searchByTitle(String searchTerm){
+    public String searchByTitle(String searchTerm) {
         String temp = "";
-        for(Movie movie : movieCollection.getMovies()){
-            if(movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+        for (Movie movie : movieCollection.getMovies()) {
+            if (movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
                 temp += movie.toString();
             }
         }
-        if(temp.isEmpty()){
+        if (temp.isEmpty()) {
             return "No movies found";
         }
         return temp;
@@ -72,49 +72,55 @@ public class Controller {
 
 
     // ------------------------ START: get og setter ------------------------
-    public String getMovieTitel(){
+    public String getMovieTitel() {
         return movieCollection.getCurrentMovieTitle();
     }
-    public void setMovieTitel(String titel){
+
+    public void setMovieTitel(String titel) {
         movieCollection.setCurrentMovieTitle(titel);
     }
 
-    public String getMovieDirector(){
+    public String getMovieDirector() {
         return movieCollection.getCurrentMovieDirector();
     }
-    public void setMovieDirector(String director){
+
+    public void setMovieDirector(String director) {
         movieCollection.setCurrentMovieDirector(director);
     }
 
-    public String getMovieColor(){
+    public String getMovieColor() {
         return movieCollection.getCurrentMovieColor();
     }
-    public void setMovieColor(String color){
+
+    public void setMovieColor(String color) {
         movieCollection.setCurrentMovieColor(color);
     }
 
-    public String getMovieGenre(){
+    public String getMovieGenre() {
         return movieCollection.getCurrentMovieGenre();
     }
-    public void setMovieGenre(String color){
+
+    public void setMovieGenre(String color) {
         movieCollection.setCurrentMovieGenre(color);
     }
 
-    public int getMovieRelease(){
+    public int getMovieRelease() {
         return movieCollection.getCurrentMovieRelease();
     }
-    public void setMovieRelease(int year){
+
+    public void setMovieRelease(int year) {
         movieCollection.setCurrentMovieRelease(year);
     }
 
-    public int getMovieLength(){
+    public int getMovieLength() {
         return movieCollection.getCurrentMovieLength();
     }
-    public void setMovieLength(int length){
+
+    public void setMovieLength(int length) {
         movieCollection.setCurrentMovieLength(length);
     }
 
-    public String getCurrentMovie(){
+    public String getCurrentMovie() {
         return movieCollection.getCurrentMovie();
     }
 
