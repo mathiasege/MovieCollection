@@ -48,7 +48,9 @@ public class Controller {
 
     // Checker om en film eksistere.
     public String checkSpecificMovie(String movie) {
-        if(movieCollection.findSpecificMovie(movie) == null){
+        try {
+            movieCollection.findSpecificMovie(movie);
+        } catch (NullPointerException npe) {
             return "The movie doesn't exist";
         }
         return "";

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -61,13 +63,17 @@ public class UserInterface {
         String movie = new Scanner(System.in).nextLine().toLowerCase();
 
         // Kontrollere om filmen eksistere.
-        String movieExist = controller.checkSpecificMovie(movie);
-        if(!movieExist.isEmpty()){
+        String movieExist = "";
+        try {
+            movieExist = controller.checkSpecificMovie(movie);
             System.out.println(movieExist);
-        }else {
-            // Igangsæt update.
             update();
+        } catch (NullPointerException e) {
+            System.out.println("No match found in the movie library.");
         }
+
+
+
     }
     private void update() {
         Scanner scan = new Scanner(System.in);
@@ -99,12 +105,12 @@ public class UserInterface {
         System.out.println("Year created: " + controller.getMovieRelease() + ".");
         System.out.println("New movie year:");
         // Indsætter, hvis int > 0
-        controller.setMovieRelease(checkInt(scan.nextInt(), scan));
+        controller.setMovieRelease(checkInt(scan));
 
         System.out.println("Movie length: " + controller.getMovieLength() + ".");
         System.out.println("New movie length:");
         // Indsætter, hvis int > 0
-        controller.setMovieLength(checkInt(scan.nextInt(), scan));
+        controller.setMovieLength(checkInt(scan));
 
         System.out.println(controller.getCurrentMovie() + ".");
     }
@@ -134,11 +140,11 @@ public class UserInterface {
 
         System.out.println("Length of the movie:");
         // Indsætter, hvis int > 0
-        int length = checkInt(scan.nextInt(), scan);
+        int length = checkInt(scan);
 
         System.out.println("Release date:");
         // Indsætter, hvis int > 0
-        int year = checkInt(scan.nextInt(), scan);
+        int year = checkInt(scan);
 
         String addMovie = controller.addMovie(movieName,
                 movieDirector,
@@ -173,21 +179,18 @@ public class UserInterface {
     }
 
     // Kontrol for min int.
-    private int checkInt(int value, Scanner scan) {
+    private int checkInt(Scanner scan) {
         // Hvis rigtigt er indtastet.
-        if (value > 0) {
-            return value;
+        try {
+            int length = Integer.parseInt(scan.nextLine());
+            return length;
+        } catch (InputMismatchException e) {
+            System.out.println("Please enter a valid number.");
+            return checkInt(scan);
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number.");
+            return checkInt(scan);
         }
-
-        // Så længe det ikke er en int
-        while (!scan.hasNextInt()) {
-            System.out.println("That's not a number!");
-            scan.next(); // this is important!
-        }
-
-        // sæt
-        value = scan.nextInt();
-        return value;
     }
 
 
