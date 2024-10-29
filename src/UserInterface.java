@@ -63,7 +63,7 @@ public class UserInterface {
 
         // !!! Fjernet variabel herfra og try catch. Koden gjord ikke noget specielt. !!!
         // Kontrollere om filmen eksistere.
-        String movieExist = controller.checkSpecificMovie(movie);
+        String movieExist = controller.getSpecificMovie(movie);
         if (movieExist.isEmpty())
             update();
         else

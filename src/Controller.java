@@ -35,7 +35,7 @@ public class Controller {
 
     public String deleteMovie(String movieName) {
         // Finder film.
-        String movieCheck = checkSpecificMovie(movieName);
+        String movieCheck = getSpecificMovie(movieName);
         if (!movieCheck.isEmpty()) {
             return movieCheck;
         }
@@ -48,8 +48,9 @@ public class Controller {
 
     // Checker om en film eksistere.
     // !!! Har fjernet try catch her. Det var duplikeret kode. !!!!
-    public String checkSpecificMovie(String movie) {
+    public String getSpecificMovie(String movie) {
         // !!! If else gør det samme som den try catch der var lavet !!!
+        // !!! Man laver kun try catch, hvis det er nødvendigt. !!!
         if (movieCollection.findSpecificMovie(movie) == null){
             return "The movie doesn't exist";
         }
