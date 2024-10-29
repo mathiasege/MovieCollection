@@ -101,7 +101,12 @@ public class MovieCollection {
     }
 
     public String getCurrentMovie() {
-        return currentMovie.toString();
+        try {
+            return currentMovie.toString();
+        } catch (NullPointerException npl) {
+            System.out.println("No such movie found.");
+        }
+        return "";
     }
 
     public ArrayList<Movie> getMovieCollection(){
