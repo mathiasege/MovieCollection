@@ -179,7 +179,6 @@ public class UserInterface {
     // !!! Har opdateret denne: !!!
     // Kontrol for min int.
     private int checkInt(Scanner scan) {
-        // Hvis rigtigt er indtastet.
         try {
             /// !!! Man kan bare gøre således !!!
             return Integer.parseInt(scan.nextLine());
