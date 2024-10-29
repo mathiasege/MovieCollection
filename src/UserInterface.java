@@ -140,6 +140,8 @@ public class UserInterface {
                         selection = results.get(0);
                         deleteMovie(selection);
 
+                    }else{
+                        System.out.println("The movie you tried to delete could not be found");
                     }
 
                 } else if (userChoiceSplit[0].toUpperCase().equals("BACK")) {

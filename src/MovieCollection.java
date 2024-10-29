@@ -25,7 +25,7 @@ public class MovieCollection {
     public ArrayList<Movie> searchByTitle(String title){
         ArrayList<Movie> searchResults = new ArrayList<Movie>();
         for(Movie movie: movieCollection){
-            if (movie.getTitle().contains(title)){
+            if (movie.getTitle().toUpperCase().contains(title.toUpperCase())){
                 searchResults.add(movie);
             }
         }
