@@ -54,6 +54,7 @@ public class Movie {
         this.yearCreated = yearCreated;
     }
 
+
     public int getLengthInMinutes() {
         return lengthInMinutes;
     }
