@@ -5,7 +5,7 @@ public class MovieCollection {
     // Den sidste specifikke film, som er blevet søgt på.
     private Movie currentMovie;
 
-    public MovieCollection(){
+    public MovieCollection() {
         movieCollection = new ArrayList<>();
 
         // Tilføjer en til test
@@ -15,17 +15,17 @@ public class MovieCollection {
     }
 
     // Tilføjer en film.
-    public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre){
+    public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre) {
         currentMovie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
         movieCollection.add(currentMovie);
     }
 
     // Finder specifikke film.
-    public Movie findSpecificMovie(String movieName){
+    public Movie findSpecificMovie(String movieName) {
         // looper på listen
-        for(Movie temp : movieCollection){
+        for (Movie temp : movieCollection) {
             // Tilføjer hvis den specifikke eksistere.
-            if(temp.getTitle().toLowerCase().equals(movieName)){
+            if (temp.getTitle().toLowerCase().equals(movieName)) {
                 currentMovie = temp;
                 return currentMovie;
             }
@@ -34,16 +34,16 @@ public class MovieCollection {
     }
 
     // Sletter en film.
-    public void deleteMovie(){
+    public void deleteMovie() {
         movieCollection.remove(currentMovie);
     }
 
     //search for a movie by its title and return an array list of found movies from the collection:
     //TODO: MAKE THIS NON CASE SENSITIVE
-    public ArrayList<Movie> searchByTitle(String title){
+    public ArrayList<Movie> searchByTitle(String title) {
         ArrayList<Movie> searchResults = new ArrayList<Movie>();
-        for(Movie movie: movieCollection){
-            if (movie.getTitle().toUpperCase().contains(title.toUpperCase())){
+        for (Movie movie : movieCollection) {
+            if (movie.getTitle().toUpperCase().contains(title.toUpperCase())) {
                 searchResults.add(movie);
             }
         }
@@ -52,59 +52,69 @@ public class MovieCollection {
     }
 
 
-
     // ------------------------ START: get og setter ------------------------
-    public ArrayList<Movie> getMovies(){
+    public ArrayList<Movie> getMovies() {
         return movieCollection;
     }
 
     public String getCurrentMovieTitle() {
         return currentMovie.getTitle();
     }
-    public void setCurrentMovieTitle(String title){
+
+    public void setCurrentMovieTitle(String title) {
         currentMovie.setTitle(title);
     }
 
-    public String getCurrentMovieDirector(){
+    public String getCurrentMovieDirector() {
         return currentMovie.getDirector();
     }
-    public void setCurrentMovieDirector(String director){
+
+    public void setCurrentMovieDirector(String director) {
         currentMovie.setDirector(director);
     }
 
-    public String getCurrentMovieColor(){
+    public String getCurrentMovieColor() {
         return currentMovie.getColorBoolAsString();
     }
-    public void setCurrentMovieColor(String color){
+
+    public void setCurrentMovieColor(String color) {
         currentMovie.setColorFromString(color);
     }
 
-    public String getCurrentMovieGenre(){
+    public String getCurrentMovieGenre() {
         return currentMovie.getGenre();
     }
-    public void setCurrentMovieGenre(String genre){
+
+    public void setCurrentMovieGenre(String genre) {
         currentMovie.setGenre(genre);
     }
 
-    public int getCurrentMovieRelease(){
+    public int getCurrentMovieRelease() {
         return currentMovie.getYearCreated();
     }
-    public void setCurrentMovieRelease(int year){
+
+    public void setCurrentMovieRelease(int year) {
         currentMovie.setYearCreated(year);
     }
 
-    public int getCurrentMovieLength(){
+    public int getCurrentMovieLength() {
         return currentMovie.getLengthInMinutes();
     }
-    public void setCurrentMovieLength(int length){
+
+    public void setCurrentMovieLength(int length) {
         currentMovie.setLengthInMinutes(length);
     }
 
     public String getCurrentMovie() {
-        return currentMovie.toString();
+        try {
+            return currentMovie.toString();
+        } catch (NullPointerException npl) {
+            System.out.println("No such movie found.");
+        }
+        return "";
     }
 
-    public ArrayList<Movie> getMovieCollection(){
+    public ArrayList<Movie> getMovieCollection() {
         return movieCollection;
     }
 
