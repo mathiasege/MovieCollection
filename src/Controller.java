@@ -6,7 +6,7 @@ public class Controller {
         movieCollection = new MovieCollection();
     }
 
-    // Opbygger min string med movies.
+    // Opbygger string med movies.
     public String displayMovie() {
         String display = "";
 
@@ -49,6 +49,7 @@ public class Controller {
     // Checker om en film eksistere.
     // !!! Har fjernet try catch her. Det var duplikeret kode. !!!!
     public String checkSpecificMovie(String movie) {
+        // !!! If else gør det samme som den try catch der var lavet !!!
         if (movieCollection.findSpecificMovie(movie) == null){
             return "The movie doesn't exist";
         }

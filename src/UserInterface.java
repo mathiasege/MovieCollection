@@ -181,7 +181,9 @@ public class UserInterface {
     private int checkInt(Scanner scan) {
         // Hvis rigtigt er indtastet.
         try {
+            /// !!! Man kan bare gøre således !!!
             return Integer.parseInt(scan.nextLine());
+            // !!! Vi har kun 1 catch !!!
         } catch (InputMismatchException | NumberFormatException e) {
             System.out.println("Please enter a valid number.");
             return checkInt(scan);
