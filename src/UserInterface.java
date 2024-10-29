@@ -63,13 +63,17 @@ public class UserInterface {
         String movie = new Scanner(System.in).nextLine().toLowerCase();
 
         // Kontrollere om filmen eksistere.
-        String movieExist = controller.checkSpecificMovie(movie);
-        if(!movieExist.isEmpty()){
+        String movieExist = "";
+        try {
+            movieExist = controller.checkSpecificMovie(movie);
             System.out.println(movieExist);
-        }else {
-            // Igangsæt update.
             update();
+        } catch (NullPointerException e) {
+            System.out.println("No match found in the movie library.");
         }
+
+
+
     }
     private void update() {
         Scanner scan = new Scanner(System.in);
