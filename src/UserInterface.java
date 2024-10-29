@@ -120,6 +120,7 @@ public class UserInterface {
         boolean exit = false;
         while(!exit){
             System.out.println("If you wish to edit one of the movies, type EDIT, followed by the movies name");
+            System.out.println("If you wish to delete one of the movies, type DELETE, followed by the movies name");
             System.out.println("Otherwise, type BACK");
             String userChoice = input.nextLine();
             String[] userChoiceSplit = userChoice.split(" ");
@@ -132,6 +133,15 @@ public class UserInterface {
                         editMovie(selection);
 
                     }
+                } else if (userChoiceSplit[0].toUpperCase().equals("DELETE")) {
+                    String selectedMovie = reconstructSelection(userChoiceSplit);
+                    ArrayList<Movie> results = controller.searchByTitle(selectedMovie);
+                    if(results.size() >= 1){
+                        selection = results.get(0);
+                        deleteMovie(selection);
+
+                    }
+
                 } else if (userChoiceSplit[0].toUpperCase().equals("BACK")) {
                     exit = true;
                 }
@@ -186,7 +196,7 @@ public class UserInterface {
         while (!isNumeric(lengthInput)){
             lengthInput = input.nextLine();
             if(!isNumeric(lengthInput)){
-                System.out.println("Please enter a valid year");
+                System.out.println("Please enter a valid runtime");
             }else{
                 length = Integer.parseInt(lengthInput);
             }
@@ -204,6 +214,15 @@ public class UserInterface {
         selection.setInColor(inColor);
         selection.setLengthInMinutes(length);
         selection.setYearCreated(year);
+    }
+
+    private void deleteMovie(Movie movieToDelete){
+        boolean succesfullyDeleted = controller.deleteMovie(movieToDelete);
+        if(succesfullyDeleted){
+            System.out.println("The movie was found and deleted from the database");
+        }else{
+            System.out.println("The movie you are trying to delete was not found in the database");
+        }
     }
 
     private String reconstructSelection(String[] splitChoice){

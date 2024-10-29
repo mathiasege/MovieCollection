@@ -33,4 +33,15 @@ public class MovieCollection {
         return searchResults;
     }
 
+    //if it finds a copy of the movie it returns true and deletes the movie, otherwise it returns false.
+    public boolean deleteMovie(Movie movieToDelete){
+        for(Movie m : movieCollection){
+            if (m.equals(movieToDelete)){
+                movieCollection.remove(movieToDelete);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
