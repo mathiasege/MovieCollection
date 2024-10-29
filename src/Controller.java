@@ -13,7 +13,7 @@ public class Controller {
 
         // gennemgår liste og tilføjer
         for (Movie movie : movieCollection.getMovies()) {
-            display += movie.toString();
+            display += "\n" + movie.toString();
         }
 
         // If display.isEmpty(){
@@ -68,6 +68,20 @@ public class Controller {
             return "The movie doesn't exist";
         }
         return "";
+    }
+
+    //search for a film by title:
+    public String searchByTitle(String searchTerm){
+        String temp = "";
+        for(Movie movie : movieCollection.getMovies()){
+            if(movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+                temp += movie.toString();
+            }
+        }
+        if(temp.isEmpty()){
+            return "No movies found";
+        }
+        return temp;
     }
 
 

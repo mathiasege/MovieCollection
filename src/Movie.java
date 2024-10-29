@@ -74,8 +74,8 @@ public class Movie {
                 "Director: " + director + "\n" +
                 "Created: " + yearCreated + "\n" +
                 "Is in color: " + getColorBoolAsString() + "\n" +
-                "length: " + lengthInMinutes + "\n" +
-                "genre: " + genre;
+                "Length: " + lengthInMinutes + "\n" +
+                "Genre: " + genre + "\n";
 
     }
 

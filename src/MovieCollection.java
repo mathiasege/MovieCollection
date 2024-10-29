@@ -9,16 +9,9 @@ public class MovieCollection {
         movieCollection = new ArrayList<>();
 
         // Tilføjer en til test
-//        Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
-//        Movie loveActually = new Movie("Love Actually", "Chris", 2005, "Yes", 180,"Action");
-//        Movie batman2 = new Movie("Batman & Beyond", "Chris", 2005, "Yes", 180,"Action");
-//        Movie batman3 = new Movie("Batman VS Superman", "Chris", 2005, "Yes", 180,"Action");
-//        Movie titanic = new Movie("Titanic", "Chris", 2005, "Yes", 180,"Action");
-//        movieCollection.add(batman);
-//        movieCollection.add(loveActually);
-//        movieCollection.add(batman2);
-//        movieCollection.add(batman3);
-//        movieCollection.add(titanic);
+        //Do this outside the movie collection class instead
+        //Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
+        //movieCollection.add(batman);
     }
 
     // Tilføjer en film.
@@ -44,6 +37,20 @@ public class MovieCollection {
     public void deleteMovie(){
         movieCollection.remove(currentMovie);
     }
+
+    //search for a movie by its title and return an array list of found movies from the collection:
+    //TODO: MAKE THIS NON CASE SENSITIVE
+    public ArrayList<Movie> searchByTitle(String title){
+        ArrayList<Movie> searchResults = new ArrayList<Movie>();
+        for(Movie movie: movieCollection){
+            if (movie.getTitle().toUpperCase().contains(title.toUpperCase())){
+                searchResults.add(movie);
+            }
+        }
+
+        return searchResults;
+    }
+
 
 
     // ------------------------ START: get og setter ------------------------
@@ -95,6 +102,10 @@ public class MovieCollection {
 
     public String getCurrentMovie() {
         return currentMovie.toString();
+    }
+
+    public ArrayList<Movie> getMovieCollection(){
+        return movieCollection;
     }
 
     // ------------------------ SLUT: get og setter ------------------------
