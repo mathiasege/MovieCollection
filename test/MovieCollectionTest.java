@@ -1,105 +1,85 @@
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class MovieCollectionTest {
 
     @Test
+    void addManyMovie() {
+        // Arrange - lav en instans af den klasse, som du vil teste.
+        // Lav test data - hvis nødvendigt.
+        MovieCollection movieCollection = new MovieCollection();
+        int expectedInt = 3;
+
+
+        // Act - her executer du den kode, som du vil teste
+        movieCollection.addMovie("Tarzan","Mathias Clausen", 1995,"Yes",180,"Action");
+        movieCollection.addMovie("Batman","Mathias Clausen", 2000,"no",200,"Action");
+        movieCollection.addMovie("Catch me if you can","Mathias Clausen", 2002,"Yes",180,"Action");
+        int actualSize = movieCollection.getMovies().size();
+
+
+        // Assert - Bekræfter, at koden du tester, virker som den skal.
+        assertEquals(expectedInt, actualSize);
+    }
+    @Test
     void addOneMovie() {
-        //Arrange:
+        // Arrange - lav en instans af den klasse, som du vil teste.
+        // Lav test data - hvis nødvendigt.
         MovieCollection movieCollection = new MovieCollection();
-        //Act:
-        movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
-        //Assert:
-        ArrayList<Movie> collection = movieCollection.getMovies();
-        int expectedSize = 1;
-        assertEquals(expectedSize, collection.size());
+        int expectedInt = 1;
+
+        // Act - her executer du den kode, som du vil teste
+        movieCollection.addMovie("Tarzan","Mathias Clausen", 1995,"Yes",180,"Action");
+        int actualSize = movieCollection.getMovies().size();
+
+
+        // Assert - Bekræfter, at koden du tester, virker som den skal.
+        assertEquals(expectedInt, actualSize);
     }
 
     @Test
-    void addThreeMovies(){
-        //Arrange:
+    void getThreeMovies() {
         MovieCollection movieCollection = new MovieCollection();
-        //Act:
-        for(int i = 0; i < 3; i++){
-            movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
-        }
+        int expectedInt = 3;
 
-        //Assert:
-        ArrayList<Movie> collection = movieCollection.getMovies();
-        int expectedSize = 3;
-        assertEquals(expectedSize, collection.size());
+        // Act - her executer du den kode, som du vil teste
+        movieCollection.addMovie("Tarzan","Mathias Clausen", 1995,"Yes",180,"Action");
+        movieCollection.addMovie("Batman","Mathias Clausen", 2000,"no",200,"Action");
+        movieCollection.addMovie("Catch me if you can","Mathias Clausen", 2002,"Yes",180,"Action");
+        int actualSize = movieCollection.searchByTitle("a").size();
+
+        // Assert - Bekræfter, at koden du tester, virker som den skal.
+        assertEquals(expectedInt, actualSize);
     }
 
     @Test
-    void addNoMovies(){
-        //Arrange:
+    void getOneMovies() {
         MovieCollection movieCollection = new MovieCollection();
-        //Act:
-        //NOTHING LOL
-        //Assert:
-        ArrayList<Movie> collection = movieCollection.getMovies();
-        int expectedSize = 0;
-        assertEquals(expectedSize, collection.size());
+        int expectedInt = 1;
+
+        // Act - her executer du den kode, som du vil teste
+        movieCollection.addMovie("Tarzan","Mathias Clausen", 1995,"Yes",180,"Action");
+        movieCollection.addMovie("Batman","Mathias Clausen", 2000,"no",200,"Action");
+        movieCollection.addMovie("Catch me if you can","Mathias Clausen", 2002,"Yes",180,"Action");
+        int actualSize = movieCollection.searchByTitle("c").size();
+
+        // Assert - Bekræfter, at koden du tester, virker som den skal.
+        assertEquals(expectedInt, actualSize);
     }
 
     @Test
-    void displayAllMovies() {
-    }
-
-    @Test
-    void searchByTitleNoResults() {
-        //Arrange:
-        MovieCollection movieCollection = setupSampleMovieCollection();
-        //Act:
-        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Batman");
-        int actualResult = searchResults.size();
-        //ASSERT:
-        int expectedResult = 0;
-        assertEquals(expectedResult, actualResult);
-
-    }
-
-    @Test
-    void searchByTitleOneResults() {
-        //Arrange:
-        MovieCollection movieCollection = setupSampleMovieCollection();
-        //Act:
-        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Pheonix");
-        int actualResult = searchResults.size();
-        //ASSERT:
-        int expectedResult = 1;
-        assertEquals(expectedResult, actualResult);
-
-    }
-
-    @Test
-    void searchByTitleManyResults() {
-        //Arrange:
-        MovieCollection movieCollection = setupSampleMovieCollection();
-        //Act:
-        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Harry Potter");
-        int actualResult = searchResults.size();
-        //ASSERT:
-        int expectedResult = 8;
-        assertEquals(expectedResult, actualResult);
-
-    }
-
-    MovieCollection setupSampleMovieCollection(){
+    void getNullMovies() {
         MovieCollection movieCollection = new MovieCollection();
-        movieCollection.addMovie("Harry Potter and the Philosophers Stone", "Benjamin Sierota", 2001, "Yes", 120, "Fantasy");
-        movieCollection.addMovie("Harry Potter and the Chamber of Secrets", "Benjamin Sierota", 2002, "Yes", 120, "Fantasy");
-        movieCollection.addMovie("Harry Potter and the Prisoner of Azkaban", "Benjamin Sierota", 2003, "Yes", 120, "Fantasy");
-        movieCollection.addMovie("Harry Potter and the Goblet of Fire", "Benjamin Sierota", 2004, "Yes", 120, "Fantasy");
-        movieCollection.addMovie("Harry Potter and the Order of the Pheonix", "Benjamin Sierota", 2005, "Yes", 120, "Fantasy");
-        movieCollection.addMovie("Harry Potter and the Half-Blood Prince", "Benjamin Sierota", 2006, "Yes", 120, "Fantasy");
-        movieCollection.addMovie("Harry Potter and the Deathly Hallows Part 1", "Benjamin Sierota", 2007, "Yes", 120, "Fantasy");
-        movieCollection.addMovie("Harry Potter and the Deathly Hallows Part 2", "Benjamin Sierota", 2008, "Yes", 120, "Fantasy");
+        int expectedInt = 0;
 
-        return movieCollection;
+        // Act - her executer du den kode, som du vil teste
+        movieCollection.addMovie("Tarzan","Mathias Clausen", 1995,"Yes",180,"Action");
+        movieCollection.addMovie("Batman","Mathias Clausen", 2000,"no",200,"Action");
+        movieCollection.addMovie("Catch me if you can","Mathias Clausen", 2002,"Yes",180,"Action");
+        int actualSize = movieCollection.searchByTitle("æ").size();
 
+        // Assert - Bekræfter, at koden du tester, virker som den skal.
+        assertEquals(expectedInt, actualSize);
     }
 }
