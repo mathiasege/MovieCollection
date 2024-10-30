@@ -9,7 +9,6 @@ public class MovieCollection {
         movieCollection = new ArrayList<>();
 
         // Tilføjer en til test
-        //Do this outside the movie collection class instead
         //Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
         //movieCollection.add(batman);
     }
@@ -101,16 +100,7 @@ public class MovieCollection {
     }
 
     public String getCurrentMovie() {
-        try {
-            return currentMovie.toString();
-        } catch (NullPointerException npl) {
-            System.out.println("No such movie found.");
-        }
-        return "";
-    }
-
-    public ArrayList<Movie> getMovieCollection(){
-        return movieCollection;
+        return currentMovie.toString();
     }
 
     // ------------------------ SLUT: get og setter ------------------------

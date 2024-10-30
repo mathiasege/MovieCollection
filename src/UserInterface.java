@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -48,9 +49,12 @@ public class UserInterface {
     private void deleteMovie() {
         System.out.println("Delete a movie:");
         System.out.println("----------------------");
+        if(controller.getMovies().isEmpty()) {
+            System.out.println("There are no movies in your collection.");
+            return;
+        }
         System.out.println("Type the name of the movie you would like to remove.");
         String movie = new Scanner(System.in).nextLine().toLowerCase();
-
         System.out.println(controller.deleteMovie(movie));
     }
 
@@ -61,32 +65,41 @@ public class UserInterface {
         System.out.println("Type the name of the movie you would like to edit.");
         String movie = new Scanner(System.in).nextLine().toLowerCase();
 
-        // !!! Fjernet variabel herfra og try catch. Koden gjord ikke noget specielt. !!!
         // Kontrollere om filmen eksistere.
-        String movieExist = controller.getSpecificMovie(movie);
-        if (movieExist.isEmpty())
-            update();
-        else
+        String movieExist = "";
+        try {
+            movieExist = controller.checkSpecificMovie(movie);
+        } catch (NullPointerException e) {
+            System.out.println("That is not a valid movie name.");
+        }
+
+        if(!movieExist.isEmpty()){
             System.out.println(movieExist);
-
-
+        }else {
+            // Igangsæt update.
+            update();
+        }
     }
-
     private void update() {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Edit a movie:");
         System.out.println("----------------------");
 
-        System.out.println("Movie name: " + controller.getMovieTitel() + ".");
+        try {
+            System.out.println("Movie name: " + controller.getMovieTitel() + ".");
+        } catch (NullPointerException e) {
+            System.out.println("Please enter a valid movie name.");
+            update();
+        }
         System.out.println("New movie name:");
         // Indsætter, hvis String != null
-        controller.setMovieTitel(stringIsNotEmpty(scan.nextLine().trim(), scan));
+        controller.setMovieTitel(isAString(scan.nextLine().trim(), scan));
 
         System.out.println("Director name: " + controller.getMovieDirector() + ".");
         System.out.println("New director name:");
         // Indsætter, hvis String != null
-        controller.setMovieDirector(stringIsNotEmpty(scan.nextLine().trim(), scan));
+        controller.setMovieDirector(isAString(scan.nextLine().trim(), scan));
 
         System.out.println("Movie is in color: " + controller.getMovieColor() + ".");
         System.out.println("Is in color, yes or no:");
@@ -97,7 +110,7 @@ public class UserInterface {
         System.out.println("Movie genre: " + controller.getMovieGenre() + ".");
         System.out.println("New genre:");
         // Indsætter, hvis String != null
-        controller.setMovieGenre(stringIsNotEmpty(scan.nextLine().trim(), scan));
+        controller.setMovieGenre(isAString(scan.nextLine().trim(), scan));
 
         System.out.println("Year created: " + controller.getMovieRelease() + ".");
         System.out.println("New movie year:");
@@ -121,11 +134,11 @@ public class UserInterface {
 
         System.out.println("name of the movie:");
         // Indsætter, hvis String != null
-        String movieName = stringIsNotEmpty(scan.nextLine().trim(), scan);
+        String movieName = addFilm(scan.nextLine().trim(), scan);
 
         System.out.println("name of the director:");
         // Indsætter, hvis String != null
-        String movieDirector = stringIsNotEmpty(scan.nextLine().trim(), scan);
+        String movieDirector = isAString(scan.nextLine().trim(), scan);
 
         System.out.println("the movie is in color. (yes or no):");
         // Indsætter, hvis String == Yes eller No
@@ -133,7 +146,7 @@ public class UserInterface {
 
         System.out.println("name of the genre:");
         // Indsætter, hvis String != null
-        String genre = stringIsNotEmpty(scan.nextLine().trim(), scan);
+        String genre = isAString(scan.nextLine().trim(), scan);
 
         System.out.println("Length of the movie:");
         // Indsætter, hvis int > 0
@@ -153,15 +166,31 @@ public class UserInterface {
         System.out.println("You just added:\n" + addMovie);
     }
 
-    // Kontrol for, at der er indtastet noget.
-    private String stringIsNotEmpty(String value, Scanner scan) {
-        while (value.isEmpty()) {
-            System.out.println("You must type something.");
-
+    private String addFilm(String value, Scanner scan) {
+        while(value.isEmpty()) {
+            System.out.println("Please enter a movie name");
             value = scan.nextLine();
         }
-
         return value;
+    }
+
+    // Kontrol for, at der er indtastet noget.
+    private String isAString(String value, Scanner scan) {
+        if(isAnInteger(value)) {
+            System.out.println("Please enter a valid Name");
+            value = scan.nextLine();
+            isAString(value, scan);
+        }
+        return value;
+    }
+
+    private boolean isAnInteger(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     // Kontrol for isInColor
@@ -175,22 +204,23 @@ public class UserInterface {
         return color;
     }
 
-
-    // !!! Har opdateret denne: !!!
     // Kontrol for min int.
     private int checkInt(Scanner scan) {
+        // Hvis rigtigt er indtastet.
         try {
-            /// !!! Man kan bare gøre således !!!
-            return Integer.parseInt(scan.nextLine());
-            // !!! Vi har kun 1 catch !!!
-        } catch (InputMismatchException | NumberFormatException e) {
+            int length = Integer.parseInt(scan.nextLine());
+            return length;
+        } catch (InputMismatchException e) {
+            System.out.println("Please enter a valid number.");
+            return checkInt(scan);
+        } catch (NumberFormatException e) {
             System.out.println("Please enter a valid number.");
             return checkInt(scan);
         }
     }
 
 
-    private String searchByName() {
+    private String searchByName(){
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter the name of the movie you wish to search for:");
         String searchTerm = input.nextLine();

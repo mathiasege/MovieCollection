@@ -126,5 +126,9 @@ public class Controller {
         return movieCollection.getCurrentMovie();
     }
 
+    public ArrayList<Movie> getMovies(){
+        return movieCollection.getMovies();
+    }
+
     // ------------------------ SLUT: get og setter ------------------------
 }
