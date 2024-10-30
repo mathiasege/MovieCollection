@@ -48,7 +48,7 @@ public class UserInterface {
     private void deleteMovie() {
         System.out.println("Delete a movie:");
         System.out.println("----------------------");
-        if(controller.getMovies().isEmpty()) {
+        if (controller.getMovies().isEmpty()) {
             System.out.println("There are no movies in your collection.");
             return;
         }
@@ -72,28 +72,25 @@ public class UserInterface {
             System.out.println("That is not a valid movie name.");
         }
 
-        if(!movieExist.isEmpty()){
+        if (!movieExist.isEmpty()) {
             System.out.println(movieExist);
-        }else {
+        } else {
             // Igangsæt update.
             update();
         }
     }
+
     private void update() {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Edit a movie:");
         System.out.println("----------------------");
 
-        try {
-            System.out.println("Movie name: " + controller.getMovieTitel() + ".");
-        } catch (NullPointerException e) {
-            System.out.println("Please enter a valid movie name.");
-            update();
-        }
+
+        System.out.println("Movie name: " + controller.getMovieTitel() + ".");
         System.out.println("New movie name:");
         // Indsætter, hvis String != null
-        controller.setMovieTitel(isAString(scan.nextLine().trim(), scan));
+        controller.setMovieTitel(checkString(scan.nextLine().trim(), scan));
 
         System.out.println("Director name: " + controller.getMovieDirector() + ".");
         System.out.println("New director name:");
@@ -133,7 +130,7 @@ public class UserInterface {
 
         System.out.println("name of the movie:");
         // Indsætter, hvis String != null
-        String movieName = addFilm(scan.nextLine().trim(), scan);
+        String movieName = checkString(scan.nextLine().trim(), scan);
 
         System.out.println("name of the director:");
         // Indsætter, hvis String != null
@@ -165,8 +162,8 @@ public class UserInterface {
         System.out.println("You just added:\n" + addMovie);
     }
 
-    private String addFilm(String value, Scanner scan) {
-        while(value.isEmpty()) {
+    private String checkString(String value, Scanner scan) {
+        while (value.isEmpty()) {
             System.out.println("Please enter a movie name");
             value = scan.nextLine();
         }
@@ -175,7 +172,7 @@ public class UserInterface {
 
     // Kontrol for, at der er indtastet noget.
     private String isAString(String value, Scanner scan) {
-        if(isAnInteger(value)) {
+        if (isAnInteger(value)) {
             System.out.println("Please enter a valid Name");
             value = scan.nextLine();
             isAString(value, scan);
@@ -215,7 +212,7 @@ public class UserInterface {
     }
 
 
-    private String searchByName(){
+    private String searchByName() {
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter the name of the movie you wish to search for:");
         String searchTerm = input.nextLine();
