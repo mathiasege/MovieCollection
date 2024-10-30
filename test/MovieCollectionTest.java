@@ -13,7 +13,7 @@ class MovieCollectionTest {
         //Act:
         movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
         //Assert:
-        ArrayList<Movie> collection = movieCollection.getMovieCollection();
+        ArrayList<Movie> collection = movieCollection.getMovies();
         int expectedSize = 1;
         assertEquals(expectedSize, collection.size());
     }
@@ -28,7 +28,7 @@ class MovieCollectionTest {
         }
 
         //Assert:
-        ArrayList<Movie> collection = movieCollection.getMovieCollection();
+        ArrayList<Movie> collection = movieCollection.getMovies();
         int expectedSize = 3;
         assertEquals(expectedSize, collection.size());
     }
@@ -40,7 +40,7 @@ class MovieCollectionTest {
         //Act:
         //NOTHING LOL
         //Assert:
-        ArrayList<Movie> collection = movieCollection.getMovieCollection();
+        ArrayList<Movie> collection = movieCollection.getMovies();
         int expectedSize = 0;
         assertEquals(expectedSize, collection.size());
     }
