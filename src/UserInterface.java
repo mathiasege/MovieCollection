@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -208,12 +207,8 @@ public class UserInterface {
     private int checkInt(Scanner scan) {
         // Hvis rigtigt er indtastet.
         try {
-            int length = Integer.parseInt(scan.nextLine());
-            return length;
-        } catch (InputMismatchException e) {
-            System.out.println("Please enter a valid number.");
-            return checkInt(scan);
-        } catch (NumberFormatException e) {
+            return Integer.parseInt(scan.nextLine());
+        } catch (InputMismatchException | NumberFormatException e) {
             System.out.println("Please enter a valid number.");
             return checkInt(scan);
         }
