@@ -49,9 +49,12 @@ public class UserInterface {
     private void deleteMovie() {
         System.out.println("Delete a movie:");
         System.out.println("----------------------");
+        if(controller.getMovies().isEmpty()) {
+            System.out.println("There are no movies in your collection.");
+            return;
+        }
         System.out.println("Type the name of the movie you would like to remove.");
         String movie = new Scanner(System.in).nextLine().toLowerCase();
-
         System.out.println(controller.deleteMovie(movie));
     }
 
