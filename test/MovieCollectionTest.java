@@ -8,99 +8,98 @@ class MovieCollectionTest {
 
     @Test
     void addOneMovie() {
-        //Arrange
+        //Arrange:
         MovieCollection movieCollection = new MovieCollection();
-        movieCollection.addMovie("Batman", "Matt Reeves", 2022, "true",190,"action");
-
-        //Act
-        int actualSize = movieCollection.getMovies().size();
-
-        //Assert
+        //Act:
+        movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
+        //Assert:
+        ArrayList<Movie> collection = movieCollection.getMovieCollection();
         int expectedSize = 1;
-        assertEquals(actualSize, expectedSize);
+        assertEquals(expectedSize, collection.size());
     }
 
-
     @Test
-    void addThreeMovies() {
-        //Arrange
+    void addThreeMovies(){
+        //Arrange:
         MovieCollection movieCollection = new MovieCollection();
-        movieCollection.addMovie("Batman", "Matt Reeves", 2022, "true",190,"action");
-        movieCollection.addMovie("Batman Begins", "Christopher Nolan", 2005, "true", 190, "action");
-        movieCollection.addMovie("Dark Knight", "Christopher Nolan", 2007, "true", 190, "action");
-        //Act
-        int actualSize = movieCollection.getMovies().size();
+        //Act:
+        for(int i = 0; i < 3; i++){
+            movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
+        }
 
-        //Assert
+        //Assert:
+        ArrayList<Movie> collection = movieCollection.getMovieCollection();
         int expectedSize = 3;
-        assertEquals(actualSize, expectedSize);
+        assertEquals(expectedSize, collection.size());
     }
 
     @Test
-    void emptyList() {
-        //Arrange
+    void addNoMovies(){
+        //Arrange:
         MovieCollection movieCollection = new MovieCollection();
-
-        //Act
-        int actualSize = movieCollection.getMovies().size();
-
-        //Assert
+        //Act:
+        //NOTHING LOL
+        //Assert:
+        ArrayList<Movie> collection = movieCollection.getMovieCollection();
         int expectedSize = 0;
-        assertEquals(actualSize, expectedSize);
+        assertEquals(expectedSize, collection.size());
     }
 
     @Test
-    void searchOneMovie() {
-        //Arrange
-        MovieCollection movieCollection = new MovieCollection();
-        movieCollection.addMovie("Batman", "Matt Reeves", 2022, "true",190,"action");
+    void displayAllMovies() {
+    }
 
-        //Act
-        String actualResult = movieCollection.findSpecificMovie("batman").getTitle();
-
-        //Assert
-        String expectedResult = "Batman";
+    @Test
+    void searchByTitleNoResults() {
+        //Arrange:
+        MovieCollection movieCollection = setupSampleMovieCollection();
+        //Act:
+        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Batman");
+        int actualResult = searchResults.size();
+        //ASSERT:
+        int expectedResult = 0;
         assertEquals(expectedResult, actualResult);
+
     }
 
     @Test
-    void searchThreeMovies() {
-        //Arrange
-        MovieCollection movieCollection = new MovieCollection();
-        movieCollection.addMovie("Batman", "Matt Reeves", 2022, "true",190,"action");
-        movieCollection.addMovie("Batman Begins", "Christopher Nolan", 2005, "true", 190, "action");
-        movieCollection.addMovie("Batman Batman", "Christopher Nolan", 2007, "true", 190, "action");
-        ArrayList<Movie> actualSize = new ArrayList<>();
-        //Act
-        for(Movie movie : movieCollection.getMovies()) {
-            if(movie.getTitle().toLowerCase().contains("bat")) {
-                actualSize.add(movie);
-            }
-        }
-        //Assert
-        int expectedSize = 3;
+    void searchByTitleOneResults() {
+        //Arrange:
+        MovieCollection movieCollection = setupSampleMovieCollection();
+        //Act:
+        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Pheonix");
+        int actualResult = searchResults.size();
+        //ASSERT:
+        int expectedResult = 1;
+        assertEquals(expectedResult, actualResult);
 
-        assertEquals(expectedSize, actualSize.size());
     }
 
     @Test
-    void noMovieFound() {
-        //Arrange
-        MovieCollection movieCollection = new MovieCollection();
-        movieCollection.addMovie("Batman", "Matt Reeves", 2022, "true",190,"action");
-        movieCollection.addMovie("Batman Begins", "Christopher Nolan", 2005, "true", 190, "action");
-        movieCollection.addMovie("Batman Batman", "Christopher Nolan", 2007, "true", 190, "action");
-        ArrayList<Movie> actualSize = new ArrayList<>();
-        //Act
-        for(Movie movie : movieCollection.getMovies()) {
-            if(movie.getTitle().toLowerCase().contains("cat")) {
-                actualSize.add(movie);
-            }
-        }
-        //Assert
-        int expectedSize = 0;
+    void searchByTitleManyResults() {
+        //Arrange:
+        MovieCollection movieCollection = setupSampleMovieCollection();
+        //Act:
+        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Harry Potter");
+        int actualResult = searchResults.size();
+        //ASSERT:
+        int expectedResult = 8;
+        assertEquals(expectedResult, actualResult);
 
-        assertEquals(expectedSize, actualSize.size());
     }
 
+    MovieCollection setupSampleMovieCollection(){
+        MovieCollection movieCollection = new MovieCollection();
+        movieCollection.addMovie("Harry Potter and the Philosophers Stone", "Benjamin Sierota", 2001, "Yes", 120, "Fantasy");
+        movieCollection.addMovie("Harry Potter and the Chamber of Secrets", "Benjamin Sierota", 2002, "Yes", 120, "Fantasy");
+        movieCollection.addMovie("Harry Potter and the Prisoner of Azkaban", "Benjamin Sierota", 2003, "Yes", 120, "Fantasy");
+        movieCollection.addMovie("Harry Potter and the Goblet of Fire", "Benjamin Sierota", 2004, "Yes", 120, "Fantasy");
+        movieCollection.addMovie("Harry Potter and the Order of the Pheonix", "Benjamin Sierota", 2005, "Yes", 120, "Fantasy");
+        movieCollection.addMovie("Harry Potter and the Half-Blood Prince", "Benjamin Sierota", 2006, "Yes", 120, "Fantasy");
+        movieCollection.addMovie("Harry Potter and the Deathly Hallows Part 1", "Benjamin Sierota", 2007, "Yes", 120, "Fantasy");
+        movieCollection.addMovie("Harry Potter and the Deathly Hallows Part 2", "Benjamin Sierota", 2008, "Yes", 120, "Fantasy");
+
+        return movieCollection;
+
+    }
 }
