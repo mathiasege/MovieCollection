@@ -21,6 +21,7 @@ public class UserInterface {
             System.out.println("Display: show movies.");
             System.out.println("Add: add a new movie.");
             System.out.println("Save: save current movie collection");
+            System.out.println("Load: loads saved list");
             System.out.println("Delete: Delete a movie.");
             System.out.println("Update: Update a movie.");
             System.out.println("Search: Search for a movie by its title.");
@@ -33,6 +34,7 @@ public class UserInterface {
                 case "DISPLAY" -> displayMovie();
                 case "ADD" -> addMovie();
                 case "SAVE" -> saveList();
+                case "LOAD" -> loadList();
                 case "DELETE" -> deleteMovie();
                 case "UPDATE" -> updateMovie();
                 case "SEARCH" -> System.out.println(searchByName());
@@ -46,6 +48,12 @@ public class UserInterface {
         System.out.println("Movie list is being saved...");
         System.out.println("----------------------");
         controller.saveList(controller.getMovieCollection());
+    }
+
+    private void loadList(){
+        System.out.println("Loading list...");
+        System.out.println("----------------------");
+        controller.loadList();
     }
 
     private void displayMovie() {

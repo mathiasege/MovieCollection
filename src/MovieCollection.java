@@ -10,8 +10,8 @@ public class MovieCollection {
 
         // Tilføjer en til test
         //Do this outside the movie collection class instead
-        Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
-        movieCollection.add(batman);
+        //Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
+        //movieCollection.add(batman);
     }
 
     // Tilføjer en film.

@@ -1,7 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Controller {
     private final MovieCollection movieCollection;
@@ -106,6 +109,42 @@ public class Controller {
     public MovieCollection getMovieCollection() {
         return movieCollection;
     }
+
+    public void loadList(){
+        Scanner sc = null;
+        File file = new File("MovieList.csv");
+        try{
+            sc = new Scanner(file, StandardCharsets.ISO_8859_1);
+
+        }catch(FileNotFoundException fnfe){
+            System.out.println("could not locate file.");
+            throw new RuntimeException(fnfe);
+
+        } catch (IOException e) {
+            System.out.println("the program had problems reading the file.");
+            throw new RuntimeException(e);
+        }
+        Movie movieTemp = null;
+        while (sc.hasNext()) {
+            String line = sc.nextLine();
+            String[] attributes = line.split(";");
+            movieTemp = new Movie(
+                    (attributes[0]), // titel
+                    (attributes[1]), // director
+                    (Integer.parseInt(attributes[2])), // year created
+                    (attributes[3]), // inColor
+                    (Integer.parseInt(attributes[4])), // lenght
+                    (attributes[5]) // genre
+            );
+            movieCollection.getMovieCollection().add(movieTemp);
+
+
+        }
+        sc.close();
+
+    }
+
+
 
     // ------------------------ START: get og setter ------------------------
     public String getMovieTitel(){
