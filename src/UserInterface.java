@@ -20,6 +20,7 @@ public class UserInterface {
             System.out.println("Please enter a command:");
             System.out.println("Display: show movies.");
             System.out.println("Add: add a new movie.");
+            System.out.println("Save: save current movie collection");
             System.out.println("Delete: Delete a movie.");
             System.out.println("Update: Update a movie.");
             System.out.println("Search: Search for a movie by its title.");
@@ -31,6 +32,7 @@ public class UserInterface {
             switch (userChoice) {
                 case "DISPLAY" -> displayMovie();
                 case "ADD" -> addMovie();
+                case "SAVE" -> saveList();
                 case "DELETE" -> deleteMovie();
                 case "UPDATE" -> updateMovie();
                 case "SEARCH" -> System.out.println(searchByName());
@@ -38,6 +40,12 @@ public class UserInterface {
                 default -> System.out.println("Please enter a valid command.");
             }
         }
+    }
+
+    private void saveList(){
+        System.out.println("Movie list is being saved...");
+        System.out.println("----------------------");
+        controller.saveList(controller.getMovieCollection());
     }
 
     private void displayMovie() {

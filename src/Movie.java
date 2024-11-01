@@ -6,7 +6,7 @@ public class Movie {
     private int lengthInMinutes;
     private String genre;
 
-    public Movie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre){
+    public Movie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre) {
         this.title = title;
         this.director = director;
         this.yearCreated = yearCreated;
@@ -21,6 +21,7 @@ public class Movie {
     public void setColorFromString(String color) {
         isInColor = color.equals("YES");
     }
+
     // Henter color.
     public String getColorBoolAsString() {
         // if(isInColor) {
@@ -36,6 +37,7 @@ public class Movie {
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -43,6 +45,7 @@ public class Movie {
     public String getDirector() {
         return director;
     }
+
     public void setDirector(String director) {
         this.director = director;
     }
@@ -50,6 +53,7 @@ public class Movie {
     public int getYearCreated() {
         return yearCreated;
     }
+
     public void setYearCreated(int yearCreated) {
         this.yearCreated = yearCreated;
     }
@@ -57,19 +61,25 @@ public class Movie {
     public int getLengthInMinutes() {
         return lengthInMinutes;
     }
+
     public void setLengthInMinutes(int lengthInMinutes) {
         this.lengthInMinutes = lengthInMinutes;
     }
 
-    public String getGenre(){
-        return  genre;
+    public String getGenre() {
+        return genre;
     }
+
     public void setGenre(String genre) {
         this.genre = genre;
     }
 
+    public String toCSV() {
+        return title + ";" + director + ";" + yearCreated + ";" + isInColor + ";" + lengthInMinutes + ";" + genre;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Name: " + title + "\n" +
                 "Director: " + director + "\n" +
                 "Created: " + yearCreated + "\n" +

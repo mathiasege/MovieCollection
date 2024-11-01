@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Controller {
@@ -86,6 +89,23 @@ public class Controller {
         return temp;
     }
 
+
+    public void saveList(MovieCollection m){
+        try {
+            PrintStream output = new PrintStream(new File("MovieList.csv"));
+            for(Movie movie : m.getMovieCollection()){
+            output.println(movie.toCSV());}
+            System.out.println("The list was succesfully saved!");
+
+        }catch(FileNotFoundException e){
+                System.out.println("The program encountered a problem when trying to save..");
+            }
+
+    }
+
+    public MovieCollection getMovieCollection() {
+        return movieCollection;
+    }
 
     // ------------------------ START: get og setter ------------------------
     public String getMovieTitel(){
