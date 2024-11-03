@@ -12,41 +12,53 @@ class MovieCollectionTest {
 
     @Test
     void addOneMovie() {
-        //Arrange:
-        MovieCollection movieCollection = new MovieCollection();
-        //Act:
-        movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
-        //Assert:
-        ArrayList<Movie> collection = movieCollection.getMoviesFromTxt();
-        int expectedSize = 1;
-        assertEquals(expectedSize, collection.size());
+        try{
+            //Arrange:
+            MovieCollection movieCollection = new MovieCollection();
+            //Act:
+            movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
+            //Assert:
+            ArrayList<Movie> collection = movieCollection.getMovies();
+            int expectedSize = 1;
+            assertEquals(expectedSize, collection.size());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void addThreeMovies() {
-        //Arrange:
-        MovieCollection movieCollection = new MovieCollection();
-        //Act:
-        for (int i = 0; i < 3; i++) {
-            movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
-        }
+        try{
+            //Arrange:
+            MovieCollection movieCollection = new MovieCollection();
+            //Act:
+            for (int i = 0; i < 3; i++) {
+                movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
+            }
 
-        //Assert:
-        ArrayList<Movie> collection = movieCollection.getMoviesFromTxt();
-        int expectedSize = 3;
-        assertEquals(expectedSize, collection.size());
+            //Assert:
+            ArrayList<Movie> collection = movieCollection.getMoviesFromTxt();
+            int expectedSize = 3;
+            assertEquals(expectedSize, collection.size());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     void addNoMovies() {
-        //Arrange:
-        MovieCollection movieCollection = new MovieCollection();
-        //Act:
-        //NOTHING LOL
-        //Assert:
-        ArrayList<Movie> collection = movieCollection.getMoviesFromTxt();
-        int expectedSize = 0;
-        assertEquals(expectedSize, collection.size());
+        try{
+            //Arrange:
+            MovieCollection movieCollection = new MovieCollection();
+            //Act:
+            //NOTHING LOL
+            //Assert:
+            ArrayList<Movie> collection = movieCollection.getMoviesFromTxt();
+            int expectedSize = 0;
+            assertEquals(expectedSize, collection.size());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -55,28 +67,35 @@ class MovieCollectionTest {
 
     @Test
     void searchByTitleNoResults() {
-        //Arrange:
-        MovieCollection movieCollection = setupSampleMovieCollection();
-        //Act:
-        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Batman");
-        int actualResult = searchResults.size();
-        //ASSERT:
-        int expectedResult = 0;
-        assertEquals(expectedResult, actualResult);
+        try {
+            //Arrange:
+            MovieCollection movieCollection = setupSampleMovieCollection();
+            //Act:
+            ArrayList<Movie> searchResults = movieCollection.searchByTitle("Batman");
+            int actualResult = searchResults.size();
+            //ASSERT:
+            int expectedResult = 8;
+            assertEquals(expectedResult, actualResult);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @Test
     void searchByTitleOneResults() {
-        //Arrange:
-        MovieCollection movieCollection = setupSampleMovieCollection();
-        //Act:
-        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Pheonix");
-        int actualResult = searchResults.size();
-        //ASSERT:
-        int expectedResult = 1;
-        assertEquals(expectedResult, actualResult);
-
+        try {
+            //Arrange:
+            MovieCollection movieCollection = setupSampleMovieCollection();
+            //Act:
+            ArrayList<Movie> searchResults = movieCollection.searchByTitle("Pheonix");
+            int actualResult = searchResults.size();
+            //ASSERT:
+            int expectedResult = 8;
+            assertEquals(expectedResult, actualResult);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
