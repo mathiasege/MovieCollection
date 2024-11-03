@@ -1,3 +1,4 @@
+title,director,yearCreated,isInColor,lengthInMinutes,genre
 batman,chris,2005,Yes,180,action
 batman & robin,chris,2005,Yes,180,action
 tarzan,disney,2000,No,120,action
