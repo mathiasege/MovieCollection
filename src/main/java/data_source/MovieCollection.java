@@ -15,35 +15,39 @@ public class MovieCollection {
     // Bruges når man skal update eller delete.
     private ArrayList<Movie> movies;
 
+    // Throws fejl helt til Main.
     public MovieCollection() throws FileNotFoundException {
         movies = new ArrayList<>();
 
+        // Tilføjer fra .txt til liste.
         getMoviesFromTxt();
     }
 
     // Tilføjer en film.
     public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre)
             throws IOException {
+        // Tilføjer til liste og objekt af film.
         currentMovie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
         movies.add(currentMovie);
 
         // Opretter FileWriter i append mode. True er for at kunne skrive til den
         try (FileWriter writer = new FileWriter("Movies.txt", true)) {
-            // Tilføjer ";". Det er til for, at et menneske kan læse hvornår en record stopper.
             writer.write(title + ","
                     + director + ","
                     + yearCreated + ","
                     + color + ","
                     + lengthInMinutes + ","
                     + genre);
+            // Ny linje
             writer.write(System.lineSeparator());
         }
     }
 
     public Movie updateMovie(String oldTitle, String title, String director, int yearCreated, String color, int lengthInMinutes, String genre)
             throws IOException {
-        // Ændre navnet i listen.
+        // Finder film
         for (Movie movie : movies) {
+            // Hvis den eksistere, ændre data.
             if (movie.getTitle().equals(oldTitle)) {
                 movie.setTitle(title);
                 movie.setDirector(director);
@@ -58,6 +62,7 @@ public class MovieCollection {
             }
         }
 
+        // opdater .txt.
         writeToFile();
 
         return currentMovie;
@@ -67,13 +72,14 @@ public class MovieCollection {
     public boolean deleteMovie(String title) throws IOException {
         Movie tempMovie = null;
 
-        // Ændre navnet i listen.
+        // Finder film, som skal slettes.
         for (Movie movie : movies) {
             if (movie.getTitle().equals(title)) {
                 tempMovie = movie;
             }
         }
 
+        // Fjerner den.
         if (movies.remove(tempMovie)) {
             writeToFile();
             return true;
@@ -82,6 +88,7 @@ public class MovieCollection {
         }
     }
 
+    // Den overskriver den movies.txt.
     private void writeToFile() throws IOException {
         // over skriver alle filmene i filen med data fra movies listen.
         try (FileWriter writer = new FileWriter("Movies.txt")) { // Overskriver hele filen
@@ -93,6 +100,7 @@ public class MovieCollection {
                         movie.getColorBoolAsString() + "," +
                         movie.getLengthInMinutes() + "," +
                         movie.getGenre());
+                // ny linje
                 writer.write(System.lineSeparator());
             }
         }

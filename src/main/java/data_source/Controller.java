@@ -34,7 +34,6 @@ public class Controller {
 
     // Tilføjer
     public String addMovie(String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre) {
-
         try {
             movieCollection.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
         } catch (IOException e) {
@@ -64,11 +63,13 @@ public class Controller {
     }
 
     public String updateMovie(String oldTitle, String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre) {
+        // Tjekker om filmen eksistere.
         String checkMovie = findSpecificMovie(oldTitle);
         if (!checkMovie.isEmpty()) {
             return checkMovie;
         }
 
+        // Opdatere
         try {
             return movieCollection.updateMovie(oldTitle, title, director, yearCreated, isInColor, lengthInMinutes, genre)
                     .toString();
