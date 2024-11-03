@@ -1,6 +1,7 @@
 package data_source;
 
 import models.Movie;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,14 +15,17 @@ public class MovieCollection {
     // Bruges når man skal update eller delete.
     private ArrayList<Movie> movies;
 
-    public MovieCollection() {
+    public MovieCollection() throws FileNotFoundException {
         movies = new ArrayList<>();
+
+        getMoviesFromTxt();
     }
 
     // Tilføjer en film.
     public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre)
             throws IOException {
         currentMovie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
+        movies.add(currentMovie);
 
         // Opretter FileWriter i append mode. True er for at kunne skrive til den
         try (FileWriter writer = new FileWriter("Movies.txt", true)) {
@@ -54,8 +58,34 @@ public class MovieCollection {
             }
         }
 
+        writeToFile();
+
+        return currentMovie;
+    }
+
+    // Sletter en film.
+    public boolean deleteMovie(String title) throws IOException {
+        Movie tempMovie = null;
+
+        // Ændre navnet i listen.
+        for (Movie movie : movies) {
+            if (movie.getTitle().equals(title)) {
+                tempMovie = movie;
+            }
+        }
+
+        if (movies.remove(tempMovie)) {
+            writeToFile();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void writeToFile() throws IOException {
         // over skriver alle filmene i filen med data fra movies listen.
         try (FileWriter writer = new FileWriter("Movies.txt")) { // Overskriver hele filen
+            writer.write("title,director,yearCreated,isInColor,lengthInMinutes,genre" + System.lineSeparator());
             for (Movie movie : movies) {
                 writer.write(movie.getTitle() + "," +
                         movie.getDirector() + "," +
@@ -66,19 +96,10 @@ public class MovieCollection {
                 writer.write(System.lineSeparator());
             }
         }
-
-        return currentMovie;
     }
 
-    // Sletter en film.
-//    public void deleteMovie() {
-//        movieCollection.remove(currentMovie);
-//    }
-
     // Finder specifikke film.
-    public Movie findSpecificMovie(String movieName, ArrayList<Movie> movies) {
-        this.movies = movies;
-
+    public Movie findSpecificMovie(String movieName) {
         // looper på listen
         for (Movie temp : movies) {
             // Tilføjer hvis den specifikke eksistere.
@@ -119,7 +140,6 @@ public class MovieCollection {
         }
 
         movies = temp;
-
         return movies;
     }
 

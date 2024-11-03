@@ -4,11 +4,12 @@ import models.Movie;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Controller {
     private final MovieCollection movieCollection;
 
-    public Controller() {
+    public Controller() throws FileNotFoundException {
         movieCollection = new MovieCollection();
     }
 
@@ -16,13 +17,9 @@ public class Controller {
     public String displayMovie() {
         String display = "";
 
-        try {
-            // gennemgår liste og tilføjer
-            for (Movie movie : movieCollection.getMoviesFromTxt()) {
-                display += "\n" + movie.toString();
-            }
-        } catch (FileNotFoundException e) {
-            return e.getMessage();
+        // gennemgår liste og tilføjer
+        for (Movie movie : movieCollection.getMovies()) {
+            display += "\n" + movie.toString();
         }
 
         // If display.isEmpty(){
@@ -47,17 +44,23 @@ public class Controller {
         return movieCollection.getCurrentMovie();
     }
 
-    public String deleteMovie(String movieName) {
+    public String deleteMovie(String title) {
         // Finder film.
-        String movieCheck = findSpecificMovie(movieName);
+        String movieCheck = findSpecificMovie(title);
         if (!movieCheck.isEmpty()) {
             return movieCheck;
         }
 
-        // Fjern.
-//        movieCollection.deleteMovie();
-        return "You removed:\n" + movieCollection.getCurrentMovie();
+        try {
+            // Hvis den ikke kan fjerne.
+            if(!movieCollection.deleteMovie(title)){
+                return "Something went wrong";
+            }
+        } catch (IOException e) {
+            return e.getMessage();
+        }
 
+        return "You removed:\n" + movieCollection.getCurrentMovie();
     }
 
     public String updateMovie(String oldTitle, String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre) {
@@ -69,20 +72,15 @@ public class Controller {
         try {
             return movieCollection.updateMovie(oldTitle, title, director, yearCreated, isInColor, lengthInMinutes, genre)
                     .toString();
-        } catch (IOException e){
+        } catch (IOException e) {
             return e.getMessage();
         }
     }
 
     // Checker om en film eksistere.
     public String findSpecificMovie(String movie) {
-        try {
-            // !!! Ved ikke om det bliver for besværligt at læse sådan her !!!
-            if (movieCollection.findSpecificMovie(movie, movieCollection.getMoviesFromTxt()) == null) {
-                return "The movie doesn't exist";
-            }
-        } catch (FileNotFoundException e) {
-            return e.getMessage();
+        if (movieCollection.findSpecificMovie(movie) == null) {
+            return "The movie doesn't exist";
         }
 
         return "";
@@ -92,16 +90,11 @@ public class Controller {
     public String searchByTitle(String searchTerm) {
         String temp = "";
 
-        try {
-            for (Movie movie : movieCollection.getMoviesFromTxt()) {
-                if (movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    temp += movie.toString();
-                }
+        for (Movie movie : movieCollection.getMovies()) {
+            if (movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                temp += movie.toString();
             }
-        } catch (FileNotFoundException e) {
-            return e.getMessage();
         }
-
 
         if (temp.isEmpty()) {
             return "No movies found";
@@ -111,6 +104,12 @@ public class Controller {
 
 
     // ------------------------ START: get og setter ------------------------
+
+
+    public ArrayList<Movie> getMovies() {
+        return movieCollection.getMovies();
+    }
+
     public String getMovieTitel() {
         return movieCollection.getCurrentMovieTitle();
     }
@@ -134,10 +133,6 @@ public class Controller {
     public int getMovieLength() {
         return movieCollection.getCurrentMovieLength();
     }
-
-//    public ArrayList<Movie> getMovies() {
-//        return movieCollection.getMovies();
-//    }
 
     // ------------------------ SLUT: get og setter ------------------------
 }

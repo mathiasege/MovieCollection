@@ -2,6 +2,7 @@ package ui;
 
 import data_source.Controller;
 
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ public class UserInterface {
 
     private final Controller controller;
 
-    public UserInterface() {
+    public UserInterface() throws FileNotFoundException {
         controller = new Controller();
     }
 
@@ -54,10 +55,10 @@ public class UserInterface {
     private void deleteMovie(PrintStream out) {
         out.println("Delete a movie:");
         out.println("----------------------");
-//        if (controller.getMovies().isEmpty()) {
-//            out.println("There are no movies in your collection.");
-//            return;
-//        }
+        if (controller.getMovies().isEmpty()) {
+            out.println("There are no movies in your collection.");
+            return;
+        }
         out.println("Type the name of the movie you would like to remove.");
         String movie = new Scanner(System.in).nextLine().toLowerCase();
         out.println(controller.deleteMovie(movie));
@@ -230,7 +231,6 @@ public class UserInterface {
             return checkInt(scan, out);
         }
     }
-
 
     private String searchByName(PrintStream out) {
         Scanner input = new Scanner(System.in);
