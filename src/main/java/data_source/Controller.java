@@ -49,30 +49,40 @@ public class Controller {
 
     public String deleteMovie(String movieName) {
         // Finder film.
-        String movieCheck = checkSpecificMovie(movieName);
+        String movieCheck = findSpecificMovie(movieName);
         if (!movieCheck.isEmpty()) {
             return movieCheck;
         }
 
         // Fjern.
-        movieCollection.deleteMovie();
+//        movieCollection.deleteMovie();
         return "You removed:\n" + movieCollection.getCurrentMovie();
 
     }
 
-    // Checker om en film eksistere.
-    // !!! Har fjernet try catch her. Det var duplikeret kode !!!!
-    public String checkSpecificMovie(String movie) {
-        try {
-            movieCollection.getMovies();
-        } catch (FileNotFoundException e) {
-            return e.getMessage();
+    public String updateMovie(String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre) {
+        String checkMovie = findSpecificMovie(title);
+        if (!checkMovie.isEmpty()) {
+            return checkMovie;
         }
 
-        // !!! If else gør det samme som den try catch der var lavet !!!
-        // !!! Man laver kun try catch, hvis det er nødvendigt. !!!
-        if (movieCollection.findSpecificMovie(movie) == null) {
-            return "The movie doesn't exist";
+        try {
+            return movieCollection.updateMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre)
+                    .toString();
+        } catch (IOException e){
+            return e.getMessage();
+        }
+    }
+
+    // Checker om en film eksistere.
+    public String findSpecificMovie(String movie) {
+        try {
+            // !!! Ved ikke om det bliver for besværligt at læse sådan her !!!
+            if (movieCollection.findSpecificMovie(movie, movieCollection.getMovies()) == null) {
+                return "The movie doesn't exist";
+            }
+        } catch (FileNotFoundException e) {
+            return e.getMessage();
         }
 
         return "";
@@ -105,52 +115,24 @@ public class Controller {
         return movieCollection.getCurrentMovieTitle();
     }
 
-    public void setMovieTitel(String titel) {
-        movieCollection.setCurrentMovieTitle(titel);
-    }
-
     public String getMovieDirector() {
         return movieCollection.getCurrentMovieDirector();
-    }
-
-    public void setMovieDirector(String director) {
-        movieCollection.setCurrentMovieDirector(director);
     }
 
     public String getMovieColor() {
         return movieCollection.getCurrentMovieColor();
     }
 
-    public void setMovieColor(String color) {
-        movieCollection.setCurrentMovieColor(color);
-    }
-
     public String getMovieGenre() {
         return movieCollection.getCurrentMovieGenre();
-    }
-
-    public void setMovieGenre(String color) {
-        movieCollection.setCurrentMovieGenre(color);
     }
 
     public int getMovieRelease() {
         return movieCollection.getCurrentMovieRelease();
     }
 
-    public void setMovieRelease(int year) {
-        movieCollection.setCurrentMovieRelease(year);
-    }
-
     public int getMovieLength() {
         return movieCollection.getCurrentMovieLength();
-    }
-
-    public void setMovieLength(int length) {
-        movieCollection.setCurrentMovieLength(length);
-    }
-
-    public String getCurrentMovie() {
-        return movieCollection.getCurrentMovie();
     }
 
 //    public ArrayList<Movie> getMovies() {

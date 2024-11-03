@@ -71,7 +71,7 @@ public class UserInterface {
         String movie = new Scanner(System.in).nextLine().toLowerCase();
 
         // Kontrollere om filmen eksistere.
-        String movieExist = controller.checkSpecificMovie(movie);
+        String movieExist = controller.findSpecificMovie(movie);
 
         if (!movieExist.isEmpty()) {
             out.println(movieExist);
@@ -87,39 +87,45 @@ public class UserInterface {
         out.println("Edit a movie:");
         out.println("----------------------");
 
-
-        out.println("Main.models.Movie name: " + controller.getMovieTitel() + ".");
+        out.println("Old name: " + controller.getMovieTitel() + ".");
         out.println("New movie name:");
         // Indsætter, hvis String != null
-        controller.setMovieTitel(checkString(scan.nextLine().trim(), scan, out));
+        String movieName = checkString(scan.nextLine().trim(), scan, out);
 
-        out.println("Director name: " + controller.getMovieDirector() + ".");
+        out.println("Old director name: " + controller.getMovieDirector() + ".");
         out.println("New director name:");
         // Indsætter, hvis String != null
-        controller.setMovieDirector(isAString(scan.nextLine().trim(), scan, out));
+        String director = isAString(scan.nextLine().trim(), scan, out);
 
-        out.println("Main.models.Movie is in color: " + controller.getMovieColor() + ".");
+        out.println("Old is in color: " + controller.getMovieColor() + ".");
         out.println("Is in color, yes or no:");
         // Indsætter, hvis String == Yes eller No
         String color = stringIsYesNo(scan.nextLine().toUpperCase().trim(), scan, out);
-        controller.setMovieColor(color);
 
-        out.println("Main.models.Movie genre: " + controller.getMovieGenre() + ".");
+        out.println("Old genre: " + controller.getMovieGenre() + ".");
         out.println("New genre:");
         // Indsætter, hvis String != null
-        controller.setMovieGenre(isAString(scan.nextLine().trim(), scan, out));
+        String genre = isAString(scan.nextLine().trim(), scan, out);
 
-        out.println("Year created: " + controller.getMovieRelease() + ".");
+        out.println("Old year created: " + controller.getMovieRelease() + ".");
         out.println("New movie year:");
         // Indsætter, hvis int > 0
-        controller.setMovieRelease(checkInt(scan, out));
+        int year = checkInt(scan, out);
 
-        out.println("Main.models.Movie length: " + controller.getMovieLength() + ".");
+        out.println("Old length: " + controller.getMovieLength() + ".");
         out.println("New movie length:");
         // Indsætter, hvis int > 0
-        controller.setMovieLength(checkInt(scan, out));
+        int length = checkInt(scan, out);
 
-        out.println(controller.getCurrentMovie() + ".");
+        String updatedMovie = controller.updateMovie(movieName,
+                director,
+                year,
+                color,
+                length,
+                genre);
+
+
+        out.println("Movie updated: " + updatedMovie);
     }
 
     // Tilføjer film
