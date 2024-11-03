@@ -68,20 +68,20 @@ public class UserInterface {
         out.println("Update a movie");
         out.println("----------------------");
         out.println("Type the name of the movie you would like to edit.");
-        String movie = new Scanner(System.in).nextLine().toLowerCase();
+        String movieToUpdate = new Scanner(System.in).nextLine().toLowerCase();
 
         // Kontrollere om filmen eksistere.
-        String movieExist = controller.findSpecificMovie(movie);
+        String movieExist = controller.findSpecificMovie(movieToUpdate);
 
         if (!movieExist.isEmpty()) {
             out.println(movieExist);
         } else {
             // Igangsæt update.
-            update(out);
+            update(out, movieToUpdate);
         }
     }
 
-    private void update(PrintStream out) {
+    private void update(PrintStream out, String oldMovie) {
         Scanner scan = new Scanner(System.in);
 
         out.println("Edit a movie:");
@@ -90,7 +90,7 @@ public class UserInterface {
         out.println("Old name: " + controller.getMovieTitel() + ".");
         out.println("New movie name:");
         // Indsætter, hvis String != null
-        String movieName = checkString(scan.nextLine().trim(), scan, out);
+        String title = checkString(scan.nextLine().trim(), scan, out);
 
         out.println("Old director name: " + controller.getMovieDirector() + ".");
         out.println("New director name:");
@@ -117,15 +117,28 @@ public class UserInterface {
         // Indsætter, hvis int > 0
         int length = checkInt(scan, out);
 
-        String updatedMovie = controller.updateMovie(movieName,
-                director,
-                year,
-                color,
-                length,
-                genre);
+        if (!title.equals(controller.getMovieTitel()) ||
+                !director.equals(controller.getMovieDirector()) ||
+                year != controller.getMovieRelease() ||
+                !color.equalsIgnoreCase(controller.getMovieColor()) ||
+                length != controller.getMovieLength() ||
+                !genre.equals(controller.getMovieGenre())) {
 
+            String updatedMovie = controller.updateMovie(oldMovie,
+                    title,
+                    director,
+                    year,
+                    color,
+                    length,
+                    genre);
 
-        out.println("Movie updated: " + updatedMovie);
+            out.println("--------------------------------");
+            out.println("Movie updated:");
+            out.println(updatedMovie);
+        } else {
+            out.println("No changes made.");
+        }
+
     }
 
     // Tilføjer film

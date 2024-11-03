@@ -18,7 +18,7 @@ public class Controller {
 
         try {
             // gennemgår liste og tilføjer
-            for (Movie movie : movieCollection.getMovies()) {
+            for (Movie movie : movieCollection.getMoviesFromTxt()) {
                 display += "\n" + movie.toString();
             }
         } catch (FileNotFoundException e) {
@@ -60,14 +60,14 @@ public class Controller {
 
     }
 
-    public String updateMovie(String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre) {
-        String checkMovie = findSpecificMovie(title);
+    public String updateMovie(String oldTitle, String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre) {
+        String checkMovie = findSpecificMovie(oldTitle);
         if (!checkMovie.isEmpty()) {
             return checkMovie;
         }
 
         try {
-            return movieCollection.updateMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre)
+            return movieCollection.updateMovie(oldTitle, title, director, yearCreated, isInColor, lengthInMinutes, genre)
                     .toString();
         } catch (IOException e){
             return e.getMessage();
@@ -78,7 +78,7 @@ public class Controller {
     public String findSpecificMovie(String movie) {
         try {
             // !!! Ved ikke om det bliver for besværligt at læse sådan her !!!
-            if (movieCollection.findSpecificMovie(movie, movieCollection.getMovies()) == null) {
+            if (movieCollection.findSpecificMovie(movie, movieCollection.getMoviesFromTxt()) == null) {
                 return "The movie doesn't exist";
             }
         } catch (FileNotFoundException e) {
@@ -93,7 +93,7 @@ public class Controller {
         String temp = "";
 
         try {
-            for (Movie movie : movieCollection.getMovies()) {
+            for (Movie movie : movieCollection.getMoviesFromTxt()) {
                 if (movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
                     temp += movie.toString();
                 }

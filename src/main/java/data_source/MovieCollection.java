@@ -1,7 +1,6 @@
 package data_source;
 
 import models.Movie;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -17,13 +16,11 @@ public class MovieCollection {
 
     public MovieCollection() {
         movies = new ArrayList<>();
-        /* Tilføjer en til test
-        Main.models.Movie batman = new Main.models.Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
-        movieCollection.add(batman); */
     }
 
     // Tilføjer en film.
-    public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre) throws IOException {
+    public void addMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre)
+            throws IOException {
         currentMovie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
 
         // Opretter FileWriter i append mode. True er for at kunne skrive til den
@@ -39,10 +36,11 @@ public class MovieCollection {
         }
     }
 
-    public Movie updateMovie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre) throws IOException {
+    public Movie updateMovie(String oldTitle, String title, String director, int yearCreated, String color, int lengthInMinutes, String genre)
+            throws IOException {
         // Ændre navnet i listen.
         for (Movie movie : movies) {
-            if (movie.getTitle().equals(title)) {
+            if (movie.getTitle().equals(oldTitle)) {
                 movie.setTitle(title);
                 movie.setDirector(director);
                 movie.setYearCreated(yearCreated);
@@ -56,7 +54,7 @@ public class MovieCollection {
             }
         }
 
-        // over skriver alle filmene i filen med movies listen.
+        // over skriver alle filmene i filen med data fra movies listen.
         try (FileWriter writer = new FileWriter("Movies.txt")) { // Overskriver hele filen
             for (Movie movie : movies) {
                 writer.write(movie.getTitle() + "," +
@@ -93,14 +91,15 @@ public class MovieCollection {
     }
 
     // Henter alle film fra .txt
-    public ArrayList<Movie> getMovies() throws FileNotFoundException {
+    public ArrayList<Movie> getMoviesFromTxt() throws FileNotFoundException {
         // Opretter en variabel af fil og movie list
         File file = new File("Movies.txt");
-        ArrayList<Movie> movieCollection = new ArrayList<>();
+        ArrayList<Movie> temp = new ArrayList<>();
 
         // Åbner forbindelse. Den lukker automatisk.
         try (Scanner sc = new Scanner(new File(String.valueOf(file)))) {
-            sc.nextLine();  // Skip første linje (hvis det er en header)
+            // Skip første linje. Headeren
+            sc.nextLine();
 
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
@@ -113,16 +112,23 @@ public class MovieCollection {
                         Integer.parseInt(attributes[2]),
                         attributes[3],
                         Integer.parseInt(attributes[4]),
-                        attributes[5].replace(";", "")
+                        attributes[5]
                 );
-                movieCollection.add(movie);
+                temp.add(movie);
             }
         }
 
-        return movieCollection;
+        movies = temp;
+
+        return movies;
     }
 
     // ------------------------ START: get og setter ------------------------
+
+
+    public ArrayList<Movie> getMovies() {
+        return movies;
+    }
 
     public String getCurrentMovieTitle() {
         return currentMovie.getTitle();
