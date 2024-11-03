@@ -1,0 +1,5 @@
+title,director,yearCreated,isInColor,lengthInMinutes,genre
+batman,chris,2005,YES,180,action
+batman & robin,chris,2005,YES,180,action
+tarzan,disney,1999,YES,125,1999
+sex & the city,en eller anden,1995,YES,30,action

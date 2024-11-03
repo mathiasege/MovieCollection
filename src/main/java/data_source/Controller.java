@@ -1,4 +1,9 @@
-import java.util.ArrayList;
+package data_source;
+
+import models.Movie;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Controller {
     private final MovieCollection movieCollection;
@@ -11,9 +16,13 @@ public class Controller {
     public String displayMovie() {
         String display = "";
 
-        // gennemgår liste og tilføjer
-        for (Movie movie : movieCollection.getMovies()) {
-            display += "\n" + movie.toString();
+        try {
+            // gennemgår liste og tilføjer
+            for (Movie movie : movieCollection.getMovies()) {
+                display += "\n" + movie.toString();
+            }
+        } catch (FileNotFoundException e) {
+            return e.getMessage();
         }
 
         // If display.isEmpty(){
@@ -28,8 +37,12 @@ public class Controller {
 
     // Tilføjer
     public String addMovie(String title, String director, int yearCreated, String isInColor, int lengthInMinutes, String genre) {
-        movieCollection.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
 
+        try {
+            movieCollection.addMovie(title, director, yearCreated, isInColor, lengthInMinutes, genre);
+        } catch (IOException e) {
+            return e.getMessage();
+        }
         // Returner tilføjet.
         return movieCollection.getCurrentMovie();
     }
@@ -50,9 +63,15 @@ public class Controller {
     // Checker om en film eksistere.
     // !!! Har fjernet try catch her. Det var duplikeret kode !!!!
     public String checkSpecificMovie(String movie) {
+        try {
+            movieCollection.getMovies();
+        } catch (FileNotFoundException e) {
+            return e.getMessage();
+        }
+
         // !!! If else gør det samme som den try catch der var lavet !!!
         // !!! Man laver kun try catch, hvis det er nødvendigt. !!!
-        if (movieCollection.findSpecificMovie(movie) == null){
+        if (movieCollection.findSpecificMovie(movie) == null) {
             return "The movie doesn't exist";
         }
 
@@ -62,11 +81,18 @@ public class Controller {
     //search for a film by title:
     public String searchByTitle(String searchTerm) {
         String temp = "";
-        for (Movie movie : movieCollection.getMovies()) {
-            if (movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                temp += movie.toString();
+
+        try {
+            for (Movie movie : movieCollection.getMovies()) {
+                if (movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    temp += movie.toString();
+                }
             }
+        } catch (FileNotFoundException e) {
+            return e.getMessage();
         }
+
+
         if (temp.isEmpty()) {
             return "No movies found";
         }
@@ -127,9 +153,9 @@ public class Controller {
         return movieCollection.getCurrentMovie();
     }
 
-    public ArrayList<Movie> getMovies(){
-        return movieCollection.getMovies();
-    }
+//    public ArrayList<Movie> getMovies() {
+//        return movieCollection.getMovies();
+//    }
 
     // ------------------------ SLUT: get og setter ------------------------
 }

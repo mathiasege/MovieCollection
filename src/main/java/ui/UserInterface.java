@@ -1,3 +1,7 @@
+package ui;
+
+import data_source.Controller;
+
 import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -50,10 +54,10 @@ public class UserInterface {
     private void deleteMovie(PrintStream out) {
         out.println("Delete a movie:");
         out.println("----------------------");
-        if (controller.getMovies().isEmpty()) {
-            out.println("There are no movies in your collection.");
-            return;
-        }
+//        if (controller.getMovies().isEmpty()) {
+//            out.println("There are no movies in your collection.");
+//            return;
+//        }
         out.println("Type the name of the movie you would like to remove.");
         String movie = new Scanner(System.in).nextLine().toLowerCase();
         out.println(controller.deleteMovie(movie));
@@ -84,7 +88,7 @@ public class UserInterface {
         out.println("----------------------");
 
 
-        out.println("Movie name: " + controller.getMovieTitel() + ".");
+        out.println("Main.models.Movie name: " + controller.getMovieTitel() + ".");
         out.println("New movie name:");
         // Indsætter, hvis String != null
         controller.setMovieTitel(checkString(scan.nextLine().trim(), scan, out));
@@ -94,13 +98,13 @@ public class UserInterface {
         // Indsætter, hvis String != null
         controller.setMovieDirector(isAString(scan.nextLine().trim(), scan, out));
 
-        out.println("Movie is in color: " + controller.getMovieColor() + ".");
+        out.println("Main.models.Movie is in color: " + controller.getMovieColor() + ".");
         out.println("Is in color, yes or no:");
         // Indsætter, hvis String == Yes eller No
         String color = stringIsYesNo(scan.nextLine().toUpperCase().trim(), scan, out);
         controller.setMovieColor(color);
 
-        out.println("Movie genre: " + controller.getMovieGenre() + ".");
+        out.println("Main.models.Movie genre: " + controller.getMovieGenre() + ".");
         out.println("New genre:");
         // Indsætter, hvis String != null
         controller.setMovieGenre(isAString(scan.nextLine().trim(), scan, out));
@@ -110,7 +114,7 @@ public class UserInterface {
         // Indsætter, hvis int > 0
         controller.setMovieRelease(checkInt(scan, out));
 
-        out.println("Movie length: " + controller.getMovieLength() + ".");
+        out.println("Main.models.Movie length: " + controller.getMovieLength() + ".");
         out.println("New movie length:");
         // Indsætter, hvis int > 0
         controller.setMovieLength(checkInt(scan, out));
@@ -212,8 +216,7 @@ public class UserInterface {
     private String searchByName(PrintStream out) {
         Scanner input = new Scanner(System.in);
         out.println("Please enter the name of the movie you wish to search for:");
-        String searchTerm = input.nextLine();
-        return controller.searchByTitle(searchTerm);
+        return controller.searchByTitle(input.nextLine());
     }
 }
 
