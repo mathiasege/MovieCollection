@@ -143,6 +143,21 @@ public class MovieCollection {
         return movies;
     }
 
+    // !!! KUN TIL TEST FORMÅL !!!
+    //search for a movie by its title and return an array list of found movies from the collection:
+    //TODO: MAKE THIS NON CASE SENSITIVE
+    public ArrayList<Movie> searchByTitle(String title){
+        ArrayList<Movie> searchResults = new ArrayList<>();
+        for(Movie movie: movies){
+            if (movie.getTitle().toUpperCase().contains(title.toUpperCase())){
+                searchResults.add(movie);
+            }
+        }
+
+        return searchResults;
+    }
+
+
     // ------------------------ START: get og setter ------------------------
 
 
