@@ -1,6 +1,4 @@
-package data_source;
-
-import models.Movie;
+package models;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

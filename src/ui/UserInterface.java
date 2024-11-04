@@ -1,6 +1,6 @@
 package ui;
 
-import data_source.Controller;
+import models.Controller;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;

@@ -1,23 +1,22 @@
-package data_source;
+package models;
 
-import models.Movie;
+import data_source.FileHandler;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MovieCollection {
     // Den sidste specifikke film, som er blevet søgt på.
     private Movie currentMovie;
     // Bruges når man skal update eller delete.
     private ArrayList<Movie> movies;
+    private final FileHandler fileHandler;
 
     // Throws fejl helt til Main.
     public MovieCollection() throws FileNotFoundException {
         movies = new ArrayList<>();
+        fileHandler = new FileHandler();
 
         // Tilføjer fra .txt til liste.
         getMoviesFromTxt();
@@ -30,17 +29,7 @@ public class MovieCollection {
         currentMovie = new Movie(title, director, yearCreated, color, lengthInMinutes, genre);
         movies.add(currentMovie);
 
-        // Opretter FileWriter i append mode. True er for at kunne skrive til den
-        try (FileWriter writer = new FileWriter("Movies.txt", true)) {
-            writer.write(title + ","
-                    + director + ","
-                    + yearCreated + ","
-                    + color + ","
-                    + lengthInMinutes + ","
-                    + genre);
-            // Ny linje
-            writer.write(System.lineSeparator());
-        }
+        fileHandler.appendToFile(currentMovie);
     }
 
     public Movie updateMovie(String oldTitle, String title, String director, int yearCreated, String color, int lengthInMinutes, String genre)
@@ -63,7 +52,7 @@ public class MovieCollection {
         }
 
         // opdater .txt.
-        writeToFile();
+        fileHandler.writeToFile(movies);
 
         return currentMovie;
     }
@@ -81,28 +70,10 @@ public class MovieCollection {
 
         // Fjerner den.
         if (movies.remove(tempMovie)) {
-            writeToFile();
+            fileHandler.writeToFile(movies);
             return true;
         } else {
             return false;
-        }
-    }
-
-    // Den overskriver den movies.txt.
-    private void writeToFile() throws IOException {
-        // over skriver alle filmene i filen med data fra movies listen.
-        try (FileWriter writer = new FileWriter("Movies.txt")) { // Overskriver hele filen
-            writer.write("title,director,yearCreated,isInColor,lengthInMinutes,genre" + System.lineSeparator());
-            for (Movie movie : movies) {
-                writer.write(movie.getTitle() + "," +
-                        movie.getDirector() + "," +
-                        movie.getYearCreated() + "," +
-                        movie.getColorBoolAsString() + "," +
-                        movie.getLengthInMinutes() + "," +
-                        movie.getGenre());
-                // ny linje
-                writer.write(System.lineSeparator());
-            }
         }
     }
 
@@ -121,43 +92,17 @@ public class MovieCollection {
 
     // Henter alle film fra .txt
     public ArrayList<Movie> getMoviesFromTxt() throws FileNotFoundException {
-        // Opretter en variabel af fil og movie list
-        File file = new File("Movies.txt");
-        ArrayList<Movie> temp = new ArrayList<>();
-
-        // Åbner forbindelse. Den lukker automatisk.
-        try (Scanner sc = new Scanner(new File(String.valueOf(file)))) {
-            // Skip første linje. Headeren
-            sc.nextLine();
-
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                String[] attributes = line.split(",");
-
-                // Opret en ny Movie og tilføj til listen
-                Movie movie = new Movie(
-                        attributes[0],
-                        attributes[1],
-                        Integer.parseInt(attributes[2]),
-                        attributes[3],
-                        Integer.parseInt(attributes[4]),
-                        attributes[5]
-                );
-                temp.add(movie);
-            }
-        }
-
-        movies = temp;
+        movies = fileHandler.getMoviesCollection();
         return movies;
     }
 
     // !!! KUN TIL TEST FORMÅL !!!
     //search for a movie by its title and return an array list of found movies from the collection:
     //TODO: MAKE THIS NON CASE SENSITIVE
-    public ArrayList<Movie> searchByTitle(String title){
+    public ArrayList<Movie> searchByTitle(String title) {
         ArrayList<Movie> searchResults = new ArrayList<>();
-        for(Movie movie: movies){
-            if (movie.getTitle().toUpperCase().contains(title.toUpperCase())){
+        for (Movie movie : movies) {
+            if (movie.getTitle().toUpperCase().contains(title.toUpperCase())) {
                 searchResults.add(movie);
             }
         }
