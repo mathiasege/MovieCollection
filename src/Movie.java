@@ -1,4 +1,4 @@
-public class Movie {
+public class Movie implements Comparable<Movie>{
     private String title;
     private String director;
     private int yearCreated;
@@ -76,6 +76,11 @@ public class Movie {
         output += "Genre: " + genre;
 
         return output;
+    }
+
+
+    public int compareTo(Movie other){
+        return title.toLowerCase().compareTo(other.getTitle().toLowerCase());
     }
 
 }

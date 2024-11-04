@@ -21,4 +21,36 @@ public class Controller {
         return movieCollection.deleteMovie(movieToDelete);
     }
 
+    public void saveCollection(){
+        movieCollection.saveMovieListToFile();
+    }
+
+    public void loadCollection(){
+        movieCollection.loadCollectionFromFile();
+    }
+
+    public String  getFieldSeperator(){
+        return movieCollection.getFieldSeperator();
+    }
+
+    public void sortCollection(){
+        movieCollection.sortCollection();
+    }
+
+    public void sortCollectionByDirector(){
+        movieCollection.sortCollectionByDirector();
+    }
+    public void sortCollectionByGenre(){
+        movieCollection.sortCollectionByGenre();
+    }
+    public void sortCollectionByIsInColor(){
+        movieCollection.sortCollectionByLengthInMinutes();
+    }
+    public void sortCollectionByLengthInMinutes(){
+        movieCollection.sortCollectionByLengthInMinutes();
+    }
+    public void sortCollectionByYearCreated(){
+        movieCollection.sortCollectionByYearCreated();
+    }
+
 }

@@ -1,0 +1,5 @@
+Alice and Bob: Hacking Adventures;Mr Squeem;1987;true;110;Thriller;
+Avatar;James Cameron;2005;true;130;Scifi;
+batman;Tim Burton;1986;true;95;Superhero;
+CatWoman;Mr Mittens from across the street;2006;true;90;Superhero;
+Dracula;Bram Stoker;1876;false;65;Horror;

@@ -16,6 +16,8 @@ public class UserInterface {
             System.out.println("ADD: add a new movie.");
             System.out.println("DISPLAY: display all movies in the collection.");
             System.out.println("SEARCH: search for a movie by name");
+            System.out.println("SAVE: save the database to disk");
+            System.out.println("LOAD: load the database from disk");
             System.out.println("END: quit the program.");
 
             userChoice = input.nextLine();
@@ -25,6 +27,14 @@ public class UserInterface {
                 case "ADD"-> addMovie();
                 case "DISPLAY" -> displayAllMovies();
                 case "SEARCH" -> searchByName();
+                case "SAVE" -> saveCollection();
+                case "LOAD" -> loadCollection();
+                case "SORT" -> sortCollection();
+                case "SORT BY DIRECTOR" -> sortCollectionByDirector();
+                case "SORT BY GENRE" -> sortCollectionByGenre();
+                case "SORT BY COLOR" -> sortCollectionByColor();
+                case "SORT BY LENGTH" -> sortCollectionByLength();
+                case "SORT BY YEAR" -> sortCollectionByYear();
                 case "END" -> System.out.println("You're exiting the program.");
                 default -> System.out.println("Please enter a valid command");
             }
@@ -32,10 +42,12 @@ public class UserInterface {
     }
 
     private void addMovie(){
+        String fieldSeperator = controller.getFieldSeperator();
         System.out.println("Adding a new movie. please enter a title:");
-        String title = input.nextLine();
+        String title = sanitizedStringInput();
         System.out.println("Please enter the director:");
-        String director = input.nextLine();
+        String director = sanitizedStringInput();
+
 
 
         System.out.println("Please enter the year of the movie's creation:");
@@ -72,7 +84,7 @@ public class UserInterface {
         while (!isNumeric(lengthInput)){
             lengthInput = input.nextLine();
             if(!isNumeric(lengthInput)){
-                System.out.println("Please enter a valid year");
+                System.out.println("Please enter a valid length");
             }else{
                 length = Integer.parseInt(lengthInput);
             }
@@ -80,7 +92,7 @@ public class UserInterface {
         }
 
         System.out.println("Which genre is the movie");
-        String genre = input.nextLine();
+        String genre = sanitizedStringInput();
 
 
         //making the movie:
@@ -227,6 +239,14 @@ public class UserInterface {
         }
     }
 
+    private void saveCollection(){
+        controller.saveCollection();
+    }
+
+    private void loadCollection(){
+        controller.loadCollection();
+    }
+
     private String reconstructSelection(String[] splitChoice){
         String itemName = "";
         for(int i=1; i<splitChoice.length; i++){
@@ -249,5 +269,44 @@ public class UserInterface {
         } catch(NumberFormatException e){
             return false;
         }
+    }
+
+    private String sanitizedStringInput(){
+        String fieldSeperator = controller.getFieldSeperator();
+        boolean accpetableInput = false;
+
+        String result = "";
+        while(!accpetableInput){
+            String currentInput = input.nextLine();
+            if(currentInput.contains(fieldSeperator)){
+                System.out.println("ILLEGAL CHARCTER: please do not enter a " + fieldSeperator );
+            }else{
+                result = currentInput;
+                accpetableInput = true;
+            }
+        }
+
+        return result;
+    }
+
+    private void sortCollection(){
+        controller.sortCollection();
+    }
+
+    private void sortCollectionByDirector(){
+        controller.sortCollectionByDirector();
+    }
+
+    private void sortCollectionByGenre(){
+        controller.sortCollectionByGenre();
+    }
+    private void sortCollectionByColor(){
+        controller.sortCollectionByIsInColor();
+    }
+    private void sortCollectionByLength(){
+        controller.sortCollectionByLengthInMinutes();
+    }
+    private void sortCollectionByYear(){
+        controller.sortCollectionByYearCreated();
     }
 }
