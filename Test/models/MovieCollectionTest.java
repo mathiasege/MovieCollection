@@ -57,7 +57,7 @@ class MovieCollectionTest {
             }
 
             //Assert:
-            ArrayList<Movie> collection = movieCollection.getMoviesFromTxt();
+            ArrayList<Movie> collection = movieCollection.getMoviesSorted();
             int expectedSize = 3;
             assertEquals(expectedSize, collection.size());
         } catch (IOException e) {
@@ -73,7 +73,7 @@ class MovieCollectionTest {
             //Act:
             //NOTHING LOL
             //Assert:
-            assertTrue(movieCollection.getMoviesFromTxt().isEmpty(), "Tester om den er tom");
+            assertTrue(movieCollection.getMoviesSorted().isEmpty(), "Tester om den er tom");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
