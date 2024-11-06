@@ -11,6 +11,7 @@ public class Controller {
         movieCollection = new MovieCollection();
     }
 
+
     // Opbygger string med movies.
     public String displayMovie() {
         StringBuilder display = new StringBuilder();
