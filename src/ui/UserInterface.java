@@ -57,27 +57,25 @@ public class UserInterface {
     private void sort(PrintStream out) {
         Scanner scan = new Scanner(System.in);
         out.println("You can pick 2.");
-        out.println("Pick what you want to sort:");
-        out.println("Options: title, director, yearCreated, isInColor, lengthInMinutes, genre");
 
         String[] picked = new String[2];
 
         for (int i = 0; i < picked.length; i++) {
-            if (i == 0) {
-                picked[i] = scan.nextLine().trim().toUpperCase();
+            out.println("Pick what you want to sort:");
+            out.println("Options: title, director, yearCreated, isInColor, lengthInMinutes, genre");
+            picked[i] = scan.nextLine().trim().toUpperCase();
 
-                out.println("Want to pick one more?");
-                out.println("Yes or No");
+            if(picked[i].length() == 2){
+                break;
+            }
 
-                String oneMore = stringIsYesNo(scan.nextLine().toUpperCase().trim(), scan, out);
+            out.println("Want to pick one more?");
+            out.println("Yes or No");
 
-                if (oneMore.equals("NO")) {
-                    break;
-                }
-            } else {
-                out.println("Pick number 2");
+            String oneMore = stringIsYesNo(scan.nextLine().toUpperCase().trim(), scan, out);
 
-                picked[i] = scan.nextLine().trim().toUpperCase();
+            if (oneMore.equals("NO")) {
+                break;
             }
         }
 
@@ -115,6 +113,7 @@ public class UserInterface {
         } else {
             // Igangsæt update.
             update(out, movieToUpdate);
+
         }
     }
 
