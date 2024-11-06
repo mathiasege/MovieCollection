@@ -117,7 +117,8 @@ public class MovieCollection {
     }
 
     public ArrayList<Movie> userChoiceSort(String[] picked) {
-        // Laver et objekt af interface, af typen Movie.
+        // Laver et variabel af interface, af typen Movie.
+        // Kalder compareValues for at sætte first og second.
         Comparator<Movie> first = compareValues(picked[0]);
         Comparator<Movie> second = compareValues(picked[1]);
 
@@ -134,7 +135,9 @@ public class MovieCollection {
     }
 
     private Comparator<Movie> compareValues(String picked) {
+        // Tjekker om picked har en værdi
         if (picked != null && !picked.isEmpty()) {
+            // Sæt udfra værdi
             return switch (picked) {
                 case "TITLE" -> Comparator.comparing(Movie::getTitle);
                 case "DIRECTOR" -> Comparator.comparing(Movie::getDirector);

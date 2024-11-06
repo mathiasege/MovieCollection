@@ -82,28 +82,35 @@ public class Controller {
 
     //search for a film by title:
     public String searchByTitle(String searchTerm) {
+        // Laver en stringbuilder
         StringBuilder temp = new StringBuilder();
 
+        // tilføjer til stringbuilder
         for (Movie movie : movieCollection.getMoviesSorted()) {
             if (movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
                 temp.append(movie);
             }
         }
 
+        // hvis ingen er fundet
         if (temp.isEmpty()) {
             return "No movies found";
         }
+
         return temp.toString();
     }
 
     public String userChoiceSort(String[] picked) {
+        // Sætter array og tjekker for null.
         ArrayList<Movie> sorted = movieCollection.userChoiceSort(picked);
         if(sorted == null){
             return "You typed something wrong";
         }
 
+        // laver en stringbuilder.
         StringBuilder result = new StringBuilder();
         for (Movie movie : sorted) {
+            // Tilføjer til udprint
             result.append("\n").append(movie);
         }
 
