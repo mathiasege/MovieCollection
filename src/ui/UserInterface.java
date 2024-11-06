@@ -69,7 +69,7 @@ public class UserInterface {
                 out.println("Want to pick one more?");
                 out.println("Yes or No");
 
-                String oneMore = scan.nextLine().toUpperCase().trim();
+                String oneMore = stringIsYesNo(scan.nextLine().toUpperCase().trim(), scan, out);
 
                 if (oneMore.equals("NO")) {
                     break;
@@ -247,14 +247,14 @@ public class UserInterface {
     }
 
     // Kontrol for isInColor
-    private String stringIsYesNo(String color, Scanner scan, PrintStream out) {
+    private String stringIsYesNo(String input, Scanner scan, PrintStream out) {
         // Må ikke være ja eller nej.
-        while (!color.equals("YES") && !color.equals("NO")) {
+        while (!input.equals("YES") && !input.equals("NO")) {
             out.println("Try again. Type: yes or no.");
-            color = scan.nextLine().toUpperCase().trim();
+            input = scan.nextLine().toUpperCase().trim();
         }
 
-        return color;
+        return input;
     }
 
     // Kontrol for min int.

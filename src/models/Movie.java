@@ -1,7 +1,5 @@
 package models;
 
-
-
 public class Movie {
     private String title;
     private String director;
@@ -23,7 +21,7 @@ public class Movie {
     // Laver min håndtering for Color.
     // Sætter til sandt eller falsk
     public void setColorFromString(String color) {
-        isInColor = color.equals("YES");
+        isInColor = color.equals("Yes");
     }
     // Henter color.
     public String getColorBoolAsString() {
@@ -83,5 +81,4 @@ public class Movie {
                 "Genre: " + genre + "\n";
 
     }
-
 }
