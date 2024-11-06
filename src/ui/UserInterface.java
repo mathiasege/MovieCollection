@@ -2,7 +2,6 @@ package ui;
 
 import models.Controller;
 
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,7 +10,7 @@ public class UserInterface {
 
     private final Controller controller;
 
-    public UserInterface() throws FileNotFoundException {
+    public UserInterface() {
         controller = new Controller();
     }
 
@@ -19,12 +18,14 @@ public class UserInterface {
         String userChoice = "";
         Scanner input = new Scanner(System.in);
         PrintStream out = System.out;
+
         out.println("Welcome to the movie collection program.");
 
         while (!userChoice.equals("END")) {
             out.println("----------------------");
             out.println("Please enter a command:");
             out.println("Display: show movies.");
+            out.println("Sort: type what to filter.");
             out.println("Add: add a new movie.");
             out.println("Delete: Delete a movie.");
             out.println("Update: Update a movie.");
@@ -36,11 +37,12 @@ public class UserInterface {
 
             switch (userChoice) {
                 case "DISPLAY" -> displayMovie(out);
+                case "SORT" -> sort(out);
                 case "ADD" -> addMovie(out);
                 case "DELETE" -> deleteMovie(out);
                 case "UPDATE" -> updateMovie(out);
                 case "SEARCH" -> out.println(searchByName(out));
-                case "END" -> out.println("You're ending the game.");
+                case "END" -> out.println("Thank you. Goodbye");
                 default -> out.println("Please enter a valid command.");
             }
         }
@@ -52,10 +54,44 @@ public class UserInterface {
         out.println(controller.displayMovie());
     }
 
+    private void sort(PrintStream out) {
+        Scanner scan = new Scanner(System.in);
+        out.println("You can pick 2.");
+        out.println("Pick what you want to sort:");
+        out.println("Options: title, director, yearCreated, isInColor, lengthInMinutes, genre");
+
+        String[] picked = new String[2];
+
+        for (int i = 0; i < picked.length; i++) {
+            if (i == 0) {
+                picked[i] = scan.nextLine().trim().toUpperCase();
+
+                out.println("Want to pick one more?");
+                out.println("Yes or No");
+
+                String oneMore = scan.nextLine().toUpperCase().trim();
+
+                if (oneMore.equals("NO")) {
+                    break;
+                }
+            } else {
+                out.println("Pick number 2");
+
+                picked[i] = scan.nextLine().trim().toUpperCase();
+            }
+        }
+
+        // Opnå den sorterede tekststreng
+        String sortedMovies = controller.userChoiceSort(picked);
+        out.println("Sorted movie list");
+        out.println("---------------------");
+        out.println(sortedMovies);  // Udskriv den sorterede liste som en streng
+    }
+
     private void deleteMovie(PrintStream out) {
         out.println("Delete a movie:");
         out.println("----------------------");
-        if (controller.getMovies().isEmpty()) {
+        if (controller.getMoviesSorted().isEmpty()) {
             out.println("There are no movies in your collection.");
             return;
         }

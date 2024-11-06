@@ -2,9 +2,9 @@ package models;
 
 import data_source.FileHandler;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class MovieCollection {
     // Den sidste specifikke film, som er blevet søgt på.
@@ -14,7 +14,7 @@ public class MovieCollection {
     private final FileHandler fileHandler;
 
     // Throws fejl helt til Main.
-    public MovieCollection() throws FileNotFoundException {
+    public MovieCollection() {
         movies = new ArrayList<>();
         fileHandler = new FileHandler();
 
@@ -91,7 +91,7 @@ public class MovieCollection {
     }
 
     // Henter alle film fra .txt
-    public ArrayList<Movie> getMoviesFromTxt() throws FileNotFoundException {
+    public ArrayList<Movie> getMoviesFromTxt() {
         movies = fileHandler.getMoviesCollection();
         return movies;
     }
@@ -110,13 +110,47 @@ public class MovieCollection {
         return searchResults;
     }
 
-
-    // ------------------------ START: get og setter ------------------------
-
-
-    public ArrayList<Movie> getMovies() {
+    public ArrayList<Movie> getMoviesSorted() {
+        // :: er i stedet for ->
+        movies.sort(Comparator.comparing(Movie::getTitle));
         return movies;
     }
+
+    public ArrayList<Movie> userChoiceSort(String[] picked) {
+        // Laver et objekt af interface, af typen Movie.
+        Comparator<Movie> first = compareValues(picked[0]);
+        Comparator<Movie> second = compareValues(picked[1]);
+
+        // Sortér listen
+        if (first != null && second != null) {
+            movies.sort(first.thenComparing(second));
+            return movies;
+        }else if(first != null){
+            movies.sort(first);
+            return movies;
+        }else{
+            return null;
+        }
+    }
+
+    private Comparator<Movie> compareValues(String picked) {
+        if (picked != null && !picked.isEmpty()) {
+            return switch (picked) {
+                case "TITLE" -> Comparator.comparing(Movie::getTitle);
+                case "DIRECTOR" -> Comparator.comparing(Movie::getDirector);
+                case "YEARCREATED" -> Comparator.comparing(Movie::getYearCreated);
+                case "ISINCOLOR" -> Comparator.comparing(Movie::getColorBoolAsString);
+                case "LENGTHINMINUTES" -> Comparator.comparing(Movie::getLengthInMinutes);
+                case "GENRE" -> Comparator.comparing(Movie::getGenre);
+                // Hvis du har valgt forkert.
+                default -> null;
+
+            };
+        }
+        return null;
+    }
+
+    // ------------------------ START: get og setter ------------------------
 
     public String getCurrentMovieTitle() {
         return currentMovie.getTitle();

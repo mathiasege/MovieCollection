@@ -1,33 +1,28 @@
 package models;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class Controller {
     private final MovieCollection movieCollection;
 
-    public Controller() throws FileNotFoundException {
+    public Controller() {
         movieCollection = new MovieCollection();
     }
 
     // Opbygger string med movies.
     public String displayMovie() {
-        String display = "";
+        StringBuilder display = new StringBuilder();
 
         // gennemgår liste og tilføjer
-        for (Movie movie : movieCollection.getMovies()) {
-            display += "\n" + movie.toString();
+        for (Movie movie : movieCollection.getMoviesSorted()) {
+            display.append("\n").append(movie.toString());
         }
 
-        // If display.isEmpty(){
-        // return "No movies exist"
-        //} else{
-        // return display
-        //}
-        return display.isEmpty()
+        return (display.isEmpty())
                 ? "No movies exist."
-                : display;
+                : display.toString();
     }
 
     // Tilføjer
@@ -50,7 +45,7 @@ public class Controller {
 
         try {
             // Hvis den ikke kan fjerne.
-            if(!movieCollection.deleteMovie(title)){
+            if (!movieCollection.deleteMovie(title)) {
                 return "Something went wrong";
             }
         } catch (IOException e) {
@@ -87,51 +82,65 @@ public class Controller {
 
     //search for a film by title:
     public String searchByTitle(String searchTerm) {
-        String temp = "";
+        StringBuilder temp = new StringBuilder();
 
-        for (Movie movie : movieCollection.getMovies()) {
+        for (Movie movie : movieCollection.getMoviesSorted()) {
             if (movie.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
-                temp += movie.toString();
+                temp.append(movie);
             }
         }
 
         if (temp.isEmpty()) {
             return "No movies found";
         }
-        return temp;
+        return temp.toString();
+    }
+
+    public String userChoiceSort(String[] picked) {
+        ArrayList<Movie> sorted = movieCollection.userChoiceSort(picked);
+        if(sorted == null){
+            return "You typed something wrong";
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (Movie movie : sorted) {
+            result.append("\n").append(movie);
+        }
+
+        return result.toString();
     }
 
 
-    // ------------------------ START: get og setter ------------------------
+        // ------------------------ START: get og setter ------------------------
 
 
-    public ArrayList<Movie> getMovies() {
-        return movieCollection.getMovies();
+        public ArrayList<Movie> getMoviesSorted () {
+            return movieCollection.getMoviesSorted();
+        }
+
+        public String getMovieTitel () {
+            return movieCollection.getCurrentMovieTitle();
+        }
+
+        public String getMovieDirector () {
+            return movieCollection.getCurrentMovieDirector();
+        }
+
+        public String getMovieColor () {
+            return movieCollection.getCurrentMovieColor();
+        }
+
+        public String getMovieGenre () {
+            return movieCollection.getCurrentMovieGenre();
+        }
+
+        public int getMovieRelease () {
+            return movieCollection.getCurrentMovieRelease();
+        }
+
+        public int getMovieLength () {
+            return movieCollection.getCurrentMovieLength();
+        }
+
+        // ------------------------ SLUT: get og setter ------------------------
     }
-
-    public String getMovieTitel() {
-        return movieCollection.getCurrentMovieTitle();
-    }
-
-    public String getMovieDirector() {
-        return movieCollection.getCurrentMovieDirector();
-    }
-
-    public String getMovieColor() {
-        return movieCollection.getCurrentMovieColor();
-    }
-
-    public String getMovieGenre() {
-        return movieCollection.getCurrentMovieGenre();
-    }
-
-    public int getMovieRelease() {
-        return movieCollection.getCurrentMovieRelease();
-    }
-
-    public int getMovieLength() {
-        return movieCollection.getCurrentMovieLength();
-    }
-
-    // ------------------------ SLUT: get og setter ------------------------
-}
