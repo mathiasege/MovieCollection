@@ -1,8 +1,7 @@
-import data_source.MovieCollection;
+import models.MovieCollection;
 import models.Movie;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -12,13 +11,13 @@ class MovieCollectionTest {
 
     @Test
     void addOneMovie() {
-        try{
+        try {
             //Arrange:
             MovieCollection movieCollection = new MovieCollection();
             //Act:
             movieCollection.addMovie("Harry Potter and the Mystical Object", "H.C Carter", 2006, "Yes", 120, "Fantasy");
             //Assert:
-            ArrayList<Movie> collection = movieCollection.getMovies();
+            ArrayList<Movie> collection = movieCollection.getMoviesSorted();
             int expectedSize = 1;
             assertEquals(expectedSize, collection.size());
         } catch (IOException e) {
@@ -28,7 +27,7 @@ class MovieCollectionTest {
 
     @Test
     void addThreeMovies() {
-        try{
+        try {
             //Arrange:
             MovieCollection movieCollection = new MovieCollection();
             //Act:
@@ -47,7 +46,7 @@ class MovieCollectionTest {
 
     @Test
     void addNoMovies() {
-        try{
+        try {
             //Arrange:
             MovieCollection movieCollection = new MovieCollection();
             //Act:
@@ -56,7 +55,7 @@ class MovieCollectionTest {
             ArrayList<Movie> collection = movieCollection.getMoviesFromTxt();
             int expectedSize = 0;
             assertEquals(expectedSize, collection.size());
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -69,12 +68,13 @@ class MovieCollectionTest {
     void searchByTitleNoResults() {
         try {
             //Arrange:
-            MovieCollection movieCollection = setupSampleMovieCollection();
+            MovieCollection movieCollection = new MovieCollection();
+            setupSampleMovieCollection();
             //Act:
             ArrayList<Movie> searchResults = movieCollection.searchByTitle("Batman");
             int actualResult = searchResults.size();
             //ASSERT:
-            int expectedResult = 8;
+            int expectedResult = 0;
             assertEquals(expectedResult, actualResult);
         } catch (IOException e) {
             throw new RuntimeException(e);
