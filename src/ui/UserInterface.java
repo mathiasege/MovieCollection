@@ -65,7 +65,7 @@ public class UserInterface {
             out.println("Options: title, director, yearCreated, isInColor, lengthInMinutes, genre");
             picked[i] = scan.nextLine().trim().toUpperCase();
 
-            if(picked[i].length() == 2){
+            if(i == 1){
                 break;
             }
 
