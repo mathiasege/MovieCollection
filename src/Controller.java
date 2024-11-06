@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Controller {
     private MovieCollection movieCollection = new MovieCollection();
@@ -37,14 +38,23 @@ public class Controller {
         movieCollection.sortCollection();
     }
 
+   /* public void sortCollectionByDirector(String choice1, String choice2){
+
+        Comparator<Movie> test = Comparator.comparing(movieCollection.sortCollectionByDirector(choice1));
+        Comparator<Movie> test2 = Comparator.comparing(movieCollection.sortCollectionByDirector(choice2));
+
+        movieCollection.getMovieCollection().sort(test.thenComparing(test2));
+    }
+    */
+
     public void sortCollectionByDirector(){
         movieCollection.sortCollectionByDirector();
-    }
+  }
     public void sortCollectionByGenre(){
         movieCollection.sortCollectionByGenre();
     }
     public void sortCollectionByIsInColor(){
-        movieCollection.sortCollectionByLengthInMinutes();
+        movieCollection.sortCollectionByIsInColor();
     }
     public void sortCollectionByLengthInMinutes(){
         movieCollection.sortCollectionByLengthInMinutes();

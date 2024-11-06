@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class MovieCollection {
@@ -31,7 +32,7 @@ public class MovieCollection {
         return fieldSeperator;
     }
 
-    //TODO: MAKE THIS NON CASE SENSITIVE
+
     public ArrayList<Movie> searchByTitle(String title){
         ArrayList<Movie> searchResults = new ArrayList<Movie>();
         for(Movie movie: movieCollection){
@@ -85,6 +86,8 @@ public class MovieCollection {
         File collectionFIle = new File("MovieCollection.txt");
         Scanner sc = null;
 
+        //Comparator.comparing(Movie::getTitle)
+
         try{
             sc = new Scanner(collectionFIle);
         }catch (FileNotFoundException e){
@@ -119,6 +122,12 @@ public class MovieCollection {
         movieCollection.sort(null);
     }
 
+    public void sortCollectionByTwoCriteria(MovieSearchCriteria criteria1, MovieSearchCriteria criteria2){
+
+        Comparator<Movie> comparator1 = selectComparator(criteria1);
+        Comparator<Movie> comparator2 = selectComparator(criteria2);
+        movieCollection.sort(comparator1.thenComparing(comparator2));
+    }
     public void sortCollectionByDirector(){
         movieCollection.sort(new DirectorComparator());
     }
@@ -137,6 +146,22 @@ public class MovieCollection {
 
     public void sortCollectionByYearCreated(){
         movieCollection.sort(new YearCreatedComparator());
+    }
+
+    private Comparator<Movie> selectComparator(MovieSearchCriteria criteria){
+
+        Comparator<Movie> comparator1;
+        switch (criteria){
+            case TITLE -> comparator1 =  new TitleComparator();
+            case DIRECTOR -> comparator1 =  new DirectorComparator();
+            case YEAR_CREATED -> comparator1 = new YearCreatedComparator();
+            case IS_IN_COLOR -> comparator1 = new IsInColorComparator();
+            case LENGTH ->  comparator1 = new LengthInMinutesComparator();
+            case GENRE -> comparator1 = new GenreComparator();
+            default -> comparator1 = new TitleComparator();
+
+        }
+        return comparator1;
     }
 
 }
