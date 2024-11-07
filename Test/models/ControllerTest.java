@@ -1,7 +1,20 @@
 package models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import Extension.DataHandler;
+import org.junit.jupiter.api.Test;
 
-class ControllerTest {
+class ControllerTest extends DataHandler {
+
+    @Test
+    void testDisplayMovie(){
+        // Arrange
+        super.testData();
+
+        // Act
+
+        // Assert
+
+
+    }
 
 }

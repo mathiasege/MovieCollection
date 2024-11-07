@@ -1,7 +1,6 @@
 package data_source;
 
 import models.Movie;
-import models.MovieCollection;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;
@@ -11,12 +10,10 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 class FileHandlerTest {
-    private MovieCollection movieCollection;
-    private Movie movie;
 
     @Test
     void fileNotFoundFound() {
-        String actualResult = "";
+        String actualResult;
         try (Scanner scanner = new Scanner(Paths.get("Bob.txt"))){
             actualResult = "File found.";
         } catch (IOException e) {
@@ -28,7 +25,7 @@ class FileHandlerTest {
 
     @Test
     void fileFound() {
-        String actualResult = "";
+        String actualResult;
         try (Scanner scanner = new Scanner(Paths.get("Movies.txt"))){
             actualResult = "File found.";
         } catch (IOException e) {
@@ -56,7 +53,7 @@ class FileHandlerTest {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            String line = "";
+            String line;
             try {
                 Scanner scanner = new Scanner(Paths.get("Movies.txt"));
                 line = scanner.nextLine();
