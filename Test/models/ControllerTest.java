@@ -80,6 +80,22 @@ class ControllerTest extends DataHandler {
         assertEquals(expectedOutput, result);
     }
 
+    @Test
+    void testDisplayMovieNoData() {
+        // Arrange: Fylder movieCollection med testdata
+
+        Controller controller = new Controller();
+
+        // Act: Kald displayMovie() for at få resultatstrengen
+        String result = controller.displayMovie();
+
+        // Assert: Sammenlign resultatet med det forventede output
+        String expectedOutput = "No movies exist.";
+
+
+        assertEquals(expectedOutput, result);
+    }
+
 
 
 }
