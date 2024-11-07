@@ -1,9 +1,2 @@
 title,director,yearCreated,isInColor,lengthInMinutes,genre
-Batman,Chris,2005,Yes,120,Action
-Batman & Robin,DC,1990,Yes,120,Action
-Frost,Disney,2019,Yes,120,Comedy
-American Pie,Warner,2005,Yes,120,Comedy
-Coraline,Tim Burton,2009,Yes,120,Action
-Avengers,Disney,2005,Yes,180,2010,Action
-Avengers,Disney,2004,Yes,120,Action
-Superman,DC,2000,Yes,120,Action
+Harry Potter and the Mystical Object,H.C Carter,2005,Yes,120,Fantasy

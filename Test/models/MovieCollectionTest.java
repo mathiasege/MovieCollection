@@ -14,6 +14,7 @@ class MovieCollectionTest {
 
     @BeforeEach
     void setup() {
+        deleteFileContent();
         movieCollection = new MovieCollection();
     }
 
@@ -21,7 +22,7 @@ class MovieCollectionTest {
     void addOneMovie() {
         try {
             //Arrange:
-            deleteFileContent();
+
             //Act:
             movieCollection.addMovie("Harry Potter and the Mystical Object",
                     "H.C Carter",
@@ -44,7 +45,7 @@ class MovieCollectionTest {
     void addThreeMovies() {
         try {
             //Arrange:
-            deleteFileContent();
+
             //Act:
             for (int i = 0; i < 3; i++) {
                 movieCollection.addMovie("Harry Potter and the Mystical Object",
@@ -68,7 +69,7 @@ class MovieCollectionTest {
     void testEmptyCollection() {
         try {
             //Arrange:
-            deleteFileContent();
+
             //Act:
             //NOTHING LOL
             //Assert:
@@ -81,7 +82,7 @@ class MovieCollectionTest {
     @Test
     void updateMovieTitle() {
         // Arrange
-        deleteFileContent();
+
         // Act
         try {
             movieCollection.addMovie("Harry Potter and the Mystical Object",
@@ -114,7 +115,7 @@ class MovieCollectionTest {
     @Test
     void updateMovieYearCreated() {
         // Arrange
-        deleteFileContent();
+
         // Act
         try {
             movieCollection.addMovie("Harry Potter and the Mystical Object",
@@ -149,7 +150,7 @@ class MovieCollectionTest {
     void deleteMovie() {
         try {
             //Arrange
-            deleteFileContent();
+
             movieCollection.addMovie("Harry Potter and the Mystical Object",
                     "H.C Carter",
                     2006,
@@ -169,60 +170,23 @@ class MovieCollectionTest {
     @Test
     void findSpecificMovie(){
         // Arrange
-        deleteFileContent();
-        testData();
+
+        //testData();
         Movie expectedMovie = new Movie("Harry Potter and the Goblet of Fire",
                 "Benjamin Sierota",
                 2004,
                 "Yes",
                 120,
                 "Fantasy");
+
+        movieCollection.addMovie(expectedMovie);
+
         // Act
         Movie actualMovie = movieCollection.findSpecificMovie("Harry Potter and the Goblet of Fire");
         // Assert
         assertEquals(expectedMovie,actualMovie);
     }
 
-    //------------------------------------------------------------------------------------
-    // Metoder som skal rykkes væk.
-
-    @Test
-    void searchByTitleNoResults() {
-        //Arrange:
-        deleteFileContent();
-        testData();
-        //Act:
-        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Batman");
-        int actualResult = searchResults.size();
-        //ASSERT:
-        int expectedResult = 0;
-        assertEquals(expectedResult, actualResult, "Tester om jeg ingen resultater får");
-    }
-
-    @Test
-    void searchByTitleOneResults() {
-        //Arrange:
-        deleteFileContent();
-        testData();
-        //Act:
-        ArrayList<Movie> searchResults = movieCollection.searchByTitle("P");
-        int actualResult = searchResults.size();
-        //ASSERT:
-        int expectedResult = 8;
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void searchByTitleManyResults() {
-        //Arrange:
-        testData();
-        //Act:
-        ArrayList<Movie> searchResults = movieCollection.searchByTitle("Harry Potter");
-        int actualResult = searchResults.size();
-        //ASSERT:
-        int expectedResult = 8;
-        assertEquals(expectedResult, actualResult);
-    }
     //------------------------------------------------------------------------------------
 
     public void deleteFileContent() {

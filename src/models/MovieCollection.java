@@ -31,6 +31,10 @@ public class MovieCollection {
 
         fileHandler.appendToFile(currentMovie);
     }
+    //Using this for test
+    public void addMovie(Movie movie){
+        movies.add(movie);
+    }
 
     public Movie updateMovie(String oldTitle, String title, String director, int yearCreated, String color, int lengthInMinutes, String genre)
             throws IOException {
@@ -82,7 +86,7 @@ public class MovieCollection {
         // looper på listen
         for (Movie temp : movies) {
             // Tilføjer hvis den specifikke eksistere.
-            if (temp.getTitle().toLowerCase().equals(movieName)) {
+            if (temp.getTitle().toLowerCase().equals(movieName.toLowerCase())) {
                 currentMovie = temp;
                 return currentMovie;
             }
@@ -92,7 +96,6 @@ public class MovieCollection {
 
     // !!! KUN TIL TEST FORMÅL !!!
     //search for a movie by its title and return an array list of found movies from the collection:
-    //TODO: MAKE THIS NON CASE SENSITIVE
     public ArrayList<Movie> searchByTitle(String title) {
         ArrayList<Movie> searchResults = new ArrayList<>();
         for (Movie movie : movies) {
