@@ -13,8 +13,7 @@ class MovieCollectionTest {
     private MovieCollection movieCollection;
 
     @BeforeEach
-    void setup(){
-        deleteFileContent();
+    void setup() {
         movieCollection = new MovieCollection();
     }
 
@@ -22,7 +21,7 @@ class MovieCollectionTest {
     void addOneMovie() {
         try {
             //Arrange:
-
+            deleteFileContent();
             //Act:
             movieCollection.addMovie("Harry Potter and the Mystical Object",
                     "H.C Carter",
@@ -32,9 +31,9 @@ class MovieCollectionTest {
                     "Fantasy");
 
             //Assert:
-            ArrayList<Movie> collection = movieCollection.getMoviesSorted();
+            ArrayList<Movie> actualSize = movieCollection.getMoviesSorted();
             int expectedSize = 1;
-            assertEquals(expectedSize, collection.size());
+            assertEquals(expectedSize, actualSize.size());
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -45,7 +44,7 @@ class MovieCollectionTest {
     void addThreeMovies() {
         try {
             //Arrange:
-
+            deleteFileContent();
             //Act:
             for (int i = 0; i < 3; i++) {
                 movieCollection.addMovie("Harry Potter and the Mystical Object",
@@ -57,9 +56,9 @@ class MovieCollectionTest {
             }
 
             //Assert:
-            ArrayList<Movie> collection = movieCollection.getMoviesSorted();
+            ArrayList<Movie> actualSize = movieCollection.getMoviesSorted();
             int expectedSize = 3;
-            assertEquals(expectedSize, collection.size());
+            assertEquals(expectedSize, actualSize.size());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -69,7 +68,7 @@ class MovieCollectionTest {
     void testEmptyCollection() {
         try {
             //Arrange:
-
+            deleteFileContent();
             //Act:
             //NOTHING LOL
             //Assert:
@@ -79,12 +78,118 @@ class MovieCollectionTest {
         }
     }
 
+    @Test
+    void updateMovieTitle() {
+        // Arrange
+        deleteFileContent();
+        // Act
+        try {
+            movieCollection.addMovie("Harry Potter and the Mystical Object",
+                    "H.C Carter",
+                    2006,
+                    "Yes",
+                    120,
+                    "Fantasy");
+
+            String oldTitle = movieCollection.getCurrentMovieTitle();
+
+            movieCollection.updateMovie(oldTitle, "Harry Potter and the Philosophers Stone", "H.C Carter", 2006,
+                    "Yes",
+                    120,
+                    "Fantasy");
+
+            String actualTitle = movieCollection.getCurrentMovieTitle();
+
+            String expectedTitle = "Harry Potter and the Philosophers Stone";
+
+            //Assert:
+            assertEquals(expectedTitle, actualTitle);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    void updateMovieYearCreated() {
+        // Arrange
+        deleteFileContent();
+        // Act
+        try {
+            movieCollection.addMovie("Harry Potter and the Mystical Object",
+                    "H.C Carter",
+                    2006,
+                    "Yes",
+                    120,
+                    "Fantasy");
+
+            String oldTitle = movieCollection.getCurrentMovieTitle();
+
+            movieCollection.updateMovie(oldTitle, "Harry Potter and the Mystical Object",
+                    "H.C Carter",
+                    2005,
+                    "Yes",
+                    120,
+                    "Fantasy");
+
+            int actualYearCreated = movieCollection.getCurrentMovieRelease();
+            int expectedYearCreated = 2005;
+
+            //Assert:
+            assertEquals(expectedYearCreated, actualYearCreated);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    void deleteMovie() {
+        try {
+            //Arrange
+            deleteFileContent();
+            movieCollection.addMovie("Harry Potter and the Mystical Object",
+                    "H.C Carter",
+                    2006,
+                    "Yes",
+                    120,
+                    "Fantasy");
+            //Act
+            boolean deletedMovie = movieCollection.deleteMovie("Harry Potter and the Mystical Object");
+
+            //Assert
+            assertTrue(deletedMovie);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void findSpecificMovie(){
+        // Arrange
+        deleteFileContent();
+        testData();
+        Movie expectedMovie = new Movie("Harry Potter and the Goblet of Fire",
+                "Benjamin Sierota",
+                2004,
+                "Yes",
+                120,
+                "Fantasy");
+        // Act
+        Movie actualMovie = movieCollection.findSpecificMovie("Harry Potter and the Goblet of Fire");
+        // Assert
+        assertEquals(expectedMovie,actualMovie);
+    }
+
     //------------------------------------------------------------------------------------
     // Metoder som skal rykkes væk.
 
     @Test
     void searchByTitleNoResults() {
         //Arrange:
+        deleteFileContent();
         testData();
         //Act:
         ArrayList<Movie> searchResults = movieCollection.searchByTitle("Batman");
@@ -97,6 +202,7 @@ class MovieCollectionTest {
     @Test
     void searchByTitleOneResults() {
         //Arrange:
+        deleteFileContent();
         testData();
         //Act:
         ArrayList<Movie> searchResults = movieCollection.searchByTitle("P");
@@ -119,8 +225,8 @@ class MovieCollectionTest {
     }
     //------------------------------------------------------------------------------------
 
-    public void deleteFileContent(){
-        try (FileWriter writer = new FileWriter("Movies.txt", false)){
+    public void deleteFileContent() {
+        try (FileWriter writer = new FileWriter("Movies.txt", false)) {
             writer.write("title,director,yearCreated,isInColor,lengthInMinutes,genre");
             writer.write(System.lineSeparator());
         } catch (IOException e) {

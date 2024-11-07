@@ -110,6 +110,7 @@ public class Controller {
 
         // laver en stringbuilder.
         StringBuilder result = new StringBuilder();
+
         for (Movie movie : sorted) {
             // Tilføjer til udprint
             result.append("\n").append(movie);
@@ -117,7 +118,6 @@ public class Controller {
 
         return result.toString();
     }
-
 
         // ------------------------ START: get og setter ------------------------
 
