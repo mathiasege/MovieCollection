@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package UI;
+
+import DomainModel.Controller;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -33,7 +36,13 @@ public class UserInterface {
             switch (userChoice) {
                 case "DISPLAY" -> displayMovie();
                 case "ADD" -> addMovie();
-                case "SAVE" -> saveList();
+                case "SAVE" -> {
+                    if (controller.getMovieCollection().getChanged() == true) {
+                        saveList();
+                    } else {
+                        System.out.println("No changes to save..");
+                    }
+                }
                 case "LOAD" -> loadList();
                 case "DELETE" -> deleteMovie();
                 case "UPDATE" -> updateMovie();
@@ -44,23 +53,51 @@ public class UserInterface {
         }
     }
 
-    private void saveList(){
-        System.out.println("Movie list is being saved...");
+    private void saveList() {
+        System.out.println("DomainModel.Movie list is being saved...");
         System.out.println("----------------------");
         controller.saveList(controller.getMovieCollection());
+        controller.setchanged(false);
     }
 
-    private void loadList(){
+    private void loadList() {
         System.out.println("Loading list...");
         System.out.println("----------------------");
         controller.loadList();
+        controller.setchanged(true);
     }
 
     private void displayMovie() {
         System.out.println("Display movies:");
         System.out.println("----------------------");
-        System.out.println(controller.displayMovie());
+        System.out.println("Would you like to sort the movies? (YES/NO)");
+
+        Scanner input = new Scanner(System.in);
+        String userChoice = input.nextLine().toUpperCase();
+        String primaryCriterion = "null";
+        String secondaryCriterion = null;
+        boolean flag = false;
+
+        while (!userChoice.equals("YES") && !userChoice.equals("NO")) {
+            System.out.println("That's not an option. Please enter YES or NO:");
+            userChoice = input.nextLine().toUpperCase();
+        }
+
+        if (userChoice.equals("YES")) {
+            System.out.println("What would you like to sort by? (TITLE/DIRECTOR/YEAR)");
+            primaryCriterion = input.nextLine().toUpperCase();
+            System.out.println("Would you like to add a secondary criterion? (TITLE/DIRECTOR/YEAR or NONE)");
+            secondaryCriterion = input.nextLine().toUpperCase();
+            if (secondaryCriterion.equals("NONE")) {
+                secondaryCriterion = null; // No secondary criterion if user chooses "NONE"
+            }
+            flag = true;
+        }
+
+        System.out.println(controller.displayMovie(flag, primaryCriterion, secondaryCriterion));
     }
+
+
 
     private void deleteMovie() {
         System.out.println("Delete a movie:");
@@ -69,6 +106,7 @@ public class UserInterface {
         String movie = new Scanner(System.in).nextLine().toLowerCase();
 
         System.out.println(controller.deleteMovie(movie));
+        controller.setchanged(true);
     }
 
     // Opdatere film.
@@ -80,20 +118,22 @@ public class UserInterface {
 
         // Kontrollere om filmen eksistere.
         String movieExist = controller.checkSpecificMovie(movie);
-        if(!movieExist.isEmpty()){
+        if (!movieExist.isEmpty()) {
             System.out.println(movieExist);
-        }else {
+        } else {
             // Igangsæt update.
             update();
         }
+        controller.setchanged(true);
     }
+
     private void update() {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Edit a movie:");
         System.out.println("----------------------");
 
-        System.out.println("Movie name: " + controller.getMovieTitel() + ".");
+        System.out.println("DomainModel.Movie name: " + controller.getMovieTitel() + ".");
         System.out.println("New movie name:");
         // Indsætter, hvis String != null
         controller.setMovieTitel(stringIsNotEmpty(scan.nextLine().trim(), scan));
@@ -103,13 +143,13 @@ public class UserInterface {
         // Indsætter, hvis String != null
         controller.setMovieDirector(stringIsNotEmpty(scan.nextLine().trim(), scan));
 
-        System.out.println("Movie is in color: " + controller.getMovieColor() + ".");
+        System.out.println("DomainModel.Movie is in color: " + controller.getMovieColor() + ".");
         System.out.println("Is in color, yes or no:");
         // Indsætter, hvis String == Yes eller No
         String color = stringIsYesNo(scan.nextLine().toUpperCase().trim(), scan);
         controller.setMovieColor(color);
 
-        System.out.println("Movie genre: " + controller.getMovieGenre() + ".");
+        System.out.println("DomainModel.Movie genre: " + controller.getMovieGenre() + ".");
         System.out.println("New genre:");
         // Indsætter, hvis String != null
         controller.setMovieGenre(stringIsNotEmpty(scan.nextLine().trim(), scan));
@@ -119,7 +159,7 @@ public class UserInterface {
         // Indsætter, hvis int > 0
         controller.setMovieRelease(checkInt(scan));
 
-        System.out.println("Movie length: " + controller.getMovieLength() + ".");
+        System.out.println("DomainModel.Movie length: " + controller.getMovieLength() + ".");
         System.out.println("New movie length:");
         // Indsætter, hvis int > 0
         controller.setMovieLength(checkInt(scan));
@@ -166,6 +206,7 @@ public class UserInterface {
                 genre);
 
         System.out.println("You just added:\n" + addMovie);
+        controller.setchanged(true);
     }
 
     // Kontrol for, at der er indtastet noget.
@@ -206,7 +247,7 @@ public class UserInterface {
     }
 
 
-    private String searchByName(){
+    private String searchByName() {
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter the name of the movie you wish to search for:");
         String searchTerm = input.nextLine();

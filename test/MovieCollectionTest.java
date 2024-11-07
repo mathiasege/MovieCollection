@@ -1,3 +1,5 @@
+import DomainModel.Movie;
+import DomainModel.MovieCollection;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

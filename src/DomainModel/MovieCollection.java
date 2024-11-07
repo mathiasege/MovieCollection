@@ -1,16 +1,21 @@
+package DomainModel;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MovieCollection {
     private final ArrayList<Movie> movieCollection;
     // Den sidste specifikke film, som er blevet søgt på.
     private Movie currentMovie;
+    Boolean changed = false;
 
     public MovieCollection() {
         movieCollection = new ArrayList<>();
-
+        this.changed = changed;
         // Tilføjer en til test
         //Do this outside the movie collection class instead
-        //Movie batman = new Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
+        //DomainModel.Movie batman = new DomainModel.Movie("Batman", "Chris", 2005, "Yes", 180,"Action");
         //movieCollection.add(batman);
     }
 
@@ -53,6 +58,14 @@ public class MovieCollection {
 
 
     // ------------------------ START: get og setter ------------------------
+    public void setChanged(Boolean b) {
+        changed = b;
+    }
+
+    public Boolean getChanged() {
+        return changed;
+    }
+
     public ArrayList<Movie> getMovies() {
         return movieCollection;
     }
@@ -120,14 +133,55 @@ public class MovieCollection {
 
     // ------------------------ SLUT: get og setter ------------------------
 
-@Override
-    public String toString(){
-    for (Movie movie : movieCollection) {
-        System.out.println("\n" + movie.toString());
-    }
-    return "";
-}
 
+
+
+
+    // ------------------------ START: Comparators ------------------------
+
+    public void sort() {
+        movieCollection.sort(Comparator.naturalOrder());
+    }
+
+    public void sortBy(String primary, String secondary) {
+        Comparator<Movie> comparator;
+
+        // Define primary comparator
+        switch (primary.toUpperCase()) {
+            case "TITLE" -> comparator = Movie.TITLE_COMPARATOR;
+            case "DIRECTOR" -> comparator = Movie.DIRECTOR_COMPARATOR;
+            case "YEAR" -> comparator = Movie.YEAR_COMPARATOR.reversed();
+            default -> {
+                System.out.println("Unknown primary sort criterion: " + primary);
+                return;
+            }
+        }
+
+        // Apply secondary comparator if provided
+        if (secondary != null && !secondary.isEmpty()) {
+            switch (secondary.toUpperCase()) {
+                case "TITLE" -> comparator = comparator.thenComparing(Movie.TITLE_COMPARATOR);
+                case "DIRECTOR" -> comparator = comparator.thenComparing(Movie.DIRECTOR_COMPARATOR);
+                case "YEAR" -> comparator = comparator.thenComparing(Movie.YEAR_COMPARATOR.reversed());
+                default -> System.out.println("Unknown secondary sort criterion: " + secondary);
+            }
+        }
+
+        movieCollection.sort(comparator);
+    }
+
+    // ------------------------ SLUT: Comparators ------------------------
+
+
+
+
+    @Override
+    public String toString() {
+        for (Movie movie : movieCollection) {
+            System.out.println("\n" + movie.toString());
+        }
+        return "";
+    }
 
 
 }

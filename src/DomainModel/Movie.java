@@ -1,10 +1,36 @@
-public class Movie {
+package DomainModel;
+
+import java.util.Comparator;
+
+public class Movie implements Comparable<Movie> {
     private String title;
     private String director;
     private int yearCreated;
     private boolean isInColor;
     private int lengthInMinutes;
     private String genre;
+
+
+    //this is where we control what the Comparator searches with.
+    public static final Comparator<Movie> TITLE_COMPARATOR = Comparator.comparing(Movie::getTitle);
+    public static final Comparator<Movie> DIRECTOR_COMPARATOR = Comparator.comparing(Movie::getDirector);
+    public static final Comparator<Movie> YEAR_COMPARATOR = Comparator.comparingInt(Movie::getYearCreated);
+    public static final Comparator<Movie> LENGHT_COMPARATOR = Comparator.comparingInt(Movie::getLengthInMinutes);
+    public static final Comparator<Movie> COLOR_COMPARATOR = Comparator.comparing(Movie::getColorBoolAsString);
+
+
+
+    public static final Comparator<Movie> TITLE_THEN_DIRECTOR_COMPARATOR =
+            TITLE_COMPARATOR.thenComparing(DIRECTOR_COMPARATOR);
+    public static final Comparator<Movie> TITLE_THEN_YEAR_COMPARATOR =
+            TITLE_COMPARATOR.thenComparing(YEAR_COMPARATOR);
+    public static final Comparator<Movie> TITLE_THEN_LENGHT_COMPARATOR =
+            TITLE_COMPARATOR.thenComparing(LENGHT_COMPARATOR);
+
+
+
+
+
 
     public Movie(String title, String director, int yearCreated, String color, int lengthInMinutes, String genre) {
         this.title = title;
@@ -89,4 +115,9 @@ public class Movie {
 
     }
 
+    @Override
+    public int compareTo(Movie o) {
+        int result = this.getTitle().compareToIgnoreCase(o.getTitle());
+        return result != 0 ? result : this.getDirector().compareTo(o.getDirector()) ;
+    }
 }
