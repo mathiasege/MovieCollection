@@ -19,7 +19,7 @@ public class MovieCollection {
         fileHandler = new FileHandler();
 
         // Tilføjer fra .txt til liste.
-        getMoviesFromTxt();
+        movies = fileHandler.getMoviesCollection();
     }
 
     // Tilføjer en film.
@@ -88,12 +88,6 @@ public class MovieCollection {
             }
         }
         return null;
-    }
-
-    // Henter alle film fra .txt
-    public ArrayList<Movie> getMoviesFromTxt() {
-        movies = fileHandler.getMoviesCollection();
-        return movies;
     }
 
     // !!! KUN TIL TEST FORMÅL !!!
