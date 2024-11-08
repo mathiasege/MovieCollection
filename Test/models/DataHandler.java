@@ -1,6 +1,5 @@
-package Extension;
+package models;
 
-import models.MovieCollection;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.FileWriter;
