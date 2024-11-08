@@ -41,7 +41,7 @@ public class MovieCollection {
         // Finder film
         for (Movie movie : movies) {
             // Hvis den eksistere, ændre data.
-            if (movie.getTitle().equals(oldTitle)) {
+            if (movie.getTitle().toLowerCase().equals(oldTitle.toLowerCase())) {
                 movie.setTitle(title);
                 movie.setDirector(director);
                 movie.setYearCreated(yearCreated);
@@ -67,7 +67,7 @@ public class MovieCollection {
 
         // Finder film, som skal slettes.
         for (Movie movie : movies) {
-            if (movie.getTitle().equals(title)) {
+            if (movie.getTitle().toLowerCase().equals(title.toLowerCase())) {
                 tempMovie = movie;
             }
         }
